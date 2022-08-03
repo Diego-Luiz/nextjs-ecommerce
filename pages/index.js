@@ -1,5 +1,7 @@
 import Head from 'next/head';
 
+import { Header } from '../components';
+
 export default function Home() {
   return (
     <>
@@ -9,9 +11,7 @@ export default function Home() {
         <meta name="author" content="Diego Luiz" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        Homepage here
-      </div>
+      <Header />
     </>
   );
 }

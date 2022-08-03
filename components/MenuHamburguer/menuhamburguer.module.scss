@@ -1,0 +1,4 @@
+@use '../../styles/abstract' as *;
+.btn{
+    @include containerWithAbsItem;
+}

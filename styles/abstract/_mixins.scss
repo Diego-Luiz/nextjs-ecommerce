@@ -1,0 +1,15 @@
+@mixin containerWithAbsItem($display: inline-block, $position: relative){
+    @if $display == 'alreadySet'{
+        position: $position;
+    } @else {
+        position: $position;
+        display: $display;
+    }
+}
+@mixin defaultContainer {
+    width: 100%;
+    padding: 1em;
+}
+@mixin defaultLink($display: inline-block) {
+    display: $display;
+}

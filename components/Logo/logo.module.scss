@@ -1,0 +1,8 @@
+@use '../../styles/abstract/fonts';
+
+.logo {
+    font-family: fonts.$font-impact;
+    font-style: italic;
+    font-size: var(--fz-logo);
+    font-weight: 500;
+}

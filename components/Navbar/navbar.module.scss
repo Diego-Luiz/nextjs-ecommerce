@@ -1,0 +1,46 @@
+@use '../../styles/abstract' as *;
+
+.nav {
+    @include containerWithAbsItem($display: 'alreadySet');
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include defaultContainer;
+    box-shadow: 0px -10px 15px 1px #000000;
+    z-index: 2;
+}
+.links-list {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    max-height: 0px;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: var(--gray-clr);
+    list-style: none;
+    font-size: var(--fz-nav-list-items);
+    transition: all .5s ease-in-out;
+    
+    & li:first-child &__link{
+        padding-top: 1em;
+    }
+    & li:last-child &__link{
+        padding-bottom: 1em;
+    }
+    &__link {
+        @include defaultLink;
+        padding: .25em 1em;
+        color: var(--black-clr);
+        font-weight: 600;
+    }
+    &.--active{
+        overflow: auto;
+        max-height: 100vh;
+    }
+}
+.user-section {
+    @include containerWithAbsItem;
+    margin-right: .25em;
+}

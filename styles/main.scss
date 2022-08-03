@@ -1,11 +1,27 @@
-@use 'fonts';
-@import 'normalize';
+@use 'abstract' as *;
+@import 'abstract/normalize';
 
-body{
-    font-family: fonts.$font-normal;
+:root {
+    font-family: $font-normal;
     font-size: 16px;
+    @each $color, $value in $colors {
+        --#{$color}-clr: #{$value};
+    }
+    @each $font, $value in $sizes {
+        --fz-#{$font}: #{$value};
+    }
 }
-h1, h2, h3, h4, h5, h6, ul, li{
+h1, h2, h3, h4, h5, h6, ul, li {
     margin: 0;
     padding: 0;
+}
+a { text-decoration: none; }
+.sr-only {
+    display: inline-block;
+    position: absolute;
+    top: auto;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
