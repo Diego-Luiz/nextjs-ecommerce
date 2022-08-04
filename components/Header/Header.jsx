@@ -3,8 +3,8 @@ import styles from './header.module.scss';
 
 const Header = () => {
   return (
-    <header>
-       <Navbar />
+    <header className={styles['header']}>
+      <Navbar />
     </header>
   );
 }

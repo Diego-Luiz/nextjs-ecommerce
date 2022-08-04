@@ -1,0 +1,81 @@
+@use '../../styles/abstract' as *;
+.content-box{
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @include defaultContainer;
+    height: 100%;
+    padding-left: 2em;
+    padding-right: 2em;
+    text-align: center;
+    background: {
+        color: var(--black-clr);
+        position: center;
+        size: cover;
+    }
+    opacity: 0;
+    visibility: hidden;
+    transition: {
+        property: opacity, visibility;
+        duration: 2s;
+        timing-function: easy-in-out;
+    };
+
+    &.--active {
+        opacity: 1;
+        visibility: visible;
+    }
+    &.--withVideoBg { 
+        background-color: transparent;
+    }
+    &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .4);
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+    }
+    &__title,
+    &__description {
+        z-index: 4;
+        color: var(--white-clr);
+    }
+    &__title {
+        font-size: var(--fz-logo);
+    }
+    &__description{
+        line-height: 1.5em;
+    }
+}
+.video {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.more-about-link {
+    @include defaultLink;
+    z-index: 4;
+    color: var(--white-clr);
+    text-decoration: underline;
+    &:after {
+        content: '\2192';
+        display: inline-block;
+        padding-left: .5em;
+    }
+    @include mediaQ($query: '(hover:hover) and (pointer:fine)') {
+        &:hover {
+            color: var(--black-clr);
+        }
+    }
+}

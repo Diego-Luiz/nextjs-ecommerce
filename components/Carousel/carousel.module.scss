@@ -1,0 +1,30 @@
+@use '../../styles/abstract/' as *;
+
+.container {
+    @include containerWithAbsItem($display: 'alreadySet');
+    @include defaultContainer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0;
+    height: 100vh;
+    
+    .btnIndex {
+        $size: 15px;
+        position: relative;
+        z-index: 4;
+        margin-bottom: 20%;
+        border: none;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, .8);
+        width: $size;
+        height: $size;
+        &:hover{
+            background: black;
+            color: white;
+        }
+        &:not(:first-child){
+            margin-left: .5em;
+        }
+    }
+}

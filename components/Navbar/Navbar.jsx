@@ -10,7 +10,6 @@ import styles from './navbar.module.scss';
 
 const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-  console.log('rendered');
   const handleUserClick = () => {
     console.log('handling click');
   };

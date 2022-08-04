@@ -1,8 +1,9 @@
 import Head from 'next/head';
 
-import { Header } from '../components';
+import { Carousel } from '../components';
+import dataCarousel from '../data/contentsCarousel';
 
-export default function Home() {
+const Home = ({ dataCarousel }) => {
   return (
     <>
       <Head>
@@ -11,7 +12,18 @@ export default function Home() {
         <meta name="author" content="Diego Luiz" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Carousel 
+        ContainerTag='section'
+        data={dataCarousel}
+      />
     </>
   );
+};
+export async function getStaticProps() {
+  return ({
+    props: {
+      dataCarousel
+    }
+  });
 }
+export default Home;

@@ -9,7 +9,25 @@
 @mixin defaultContainer {
     width: 100%;
     padding: 1em;
+    box-sizing: border-box;
 }
 @mixin defaultLink($display: inline-block) {
     display: $display;
+    padding: .75em;
+}
+@mixin supports($property) {
+    @supports (#{$property}) {
+        @content
+    }
+}
+@mixin mediaQ($query, $withScreen: false) {
+    @if $withScreen == true {
+        @media #{'screen'} and #{query} {
+            @content
+        }
+    } @else {
+        @media #{$query} {
+            @content
+        }
+    }
 }
