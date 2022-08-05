@@ -1,0 +1,8 @@
+@use 'styles/abstract' as *;
+
+.impact-title {
+    padding: 1em 1.5em;
+    font-size: var(--fz-impact-title);
+    color: var(--black-clr);
+    text-align: center;
+}

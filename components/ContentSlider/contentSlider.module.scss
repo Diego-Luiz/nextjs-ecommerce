@@ -1,0 +1,7 @@
+@use 'styles/abstract' as *;
+
+.container {
+    @include defaultContainer;
+    // @include displayFlexCentered;
+    background: gray;
+}

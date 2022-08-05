@@ -15,10 +15,11 @@
     display: $display;
     padding: .75em;
 }
-@mixin supports($property) {
-    @supports (#{$property}) {
-        @content
-    }
+@mixin defaultBtn($display: inline-block, $bd-radius: 50px) {
+    display: $display;
+    padding: 1em 1.5em;
+    border-radius: $bd-radius;
+    font-size: var(--fz-btn);
 }
 @mixin mediaQ($query, $withScreen: false) {
     @if $withScreen == true {
@@ -29,5 +30,18 @@
         @media #{$query} {
             @content
         }
+    }
+}
+@mixin supports($property) {
+    @supports (#{$property}) {
+        @content
+    }
+}
+@mixin displayFlexCentered($column: false) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @if $column == true {
+        flex-direction: column;
     }
 }

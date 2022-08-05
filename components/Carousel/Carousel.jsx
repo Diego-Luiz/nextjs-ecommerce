@@ -1,8 +1,5 @@
-import Link from 'next/link';
 import React, { 
-  useState,
-  useRef,
-  useEffect
+  useState
 } from 'react';
 
 import styles from './carousel.module.scss';

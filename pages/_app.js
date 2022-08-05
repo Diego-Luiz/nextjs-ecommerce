@@ -1,5 +1,5 @@
-import '../styles/main.scss';
-import { Layout as defaultLayout } from '../components';
+import 'styles/main.scss';
+import { Layout as defaultLayout } from 'components';
 
 function MyApp({ Component, pageProps }) {
   const Layout = Component.getLayout || defaultLayout;

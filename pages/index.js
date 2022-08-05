@@ -1,9 +1,16 @@
 import Head from 'next/head';
 
-import { Carousel } from '../components';
-import dataCarousel from '../data/contentsCarousel';
+import { 
+  Carousel,
+  ContentSlider,
+  ImpactTitle
+} from 'components';
+import dataCarousel from 'data/contentsCarousel';
+import dataSectionsSlider from 'data/contentHomePageSlider';
+import { ECOMMERCE_NAME } from 'utils/constants';
+import styles from 'styles/homepage/homepage.module.scss';
 
-const Home = ({ dataCarousel }) => {
+const Home = ({ dataCarousel, dataSectionsSlider }) => {
   return (
     <>
       <Head>
@@ -16,13 +23,27 @@ const Home = ({ dataCarousel }) => {
         ContainerTag='section'
         data={dataCarousel}
       />
+      <section
+        className={styles['products-category-section']}
+      >
+        <ImpactTitle
+          TitleLevel={'h2'}
+        >
+          Here in {ECOMMERCE_NAME} you will have the best online shopping experience. With thousands of products and the best market prices.
+        </ImpactTitle>
+        <ContentSlider 
+          TagContainer={'div'}
+          data={dataSectionsSlider}
+        />
+      </section>
     </>
   );
 };
 export async function getStaticProps() {
   return ({
     props: {
-      dataCarousel
+      dataCarousel,
+      dataSectionsSlider
     }
   });
 }

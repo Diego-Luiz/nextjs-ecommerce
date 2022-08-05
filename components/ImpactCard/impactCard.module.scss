@@ -1,0 +1,17 @@
+@use 'styles/abstract' as *;
+
+.container {
+    @include displayFlexCentered($column: true);
+    justify-content: space-around;
+    min-height: 21.875em;
+    background: {
+        color: var(--black-clr);
+        position: center;
+        size: cover;
+    }
+}
+.see-more-btn {
+    @include defaultBtn;
+    background-color: var(--white-clr);
+    color: var(--black-clr);
+}
