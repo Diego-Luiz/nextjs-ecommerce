@@ -1,5 +1,11 @@
 @use '../abstract' as *;
 
-.products-category-section {
+.products-category-section,
+.featured-sections {
     @include defaultContainer;
+}
+.featured-sections {
+    [class*='container']:nth-child(2) {
+        margin-top: 1em;
+    }
 }

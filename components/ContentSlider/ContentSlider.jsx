@@ -27,10 +27,14 @@ const ContentSlider = ({ TagContainer, data }) => {
         <IoIosArrowBack />
       </button>
       <div className={styles['container__content']}>
-        {data.map((category, index) => (
+        {data.map((item, index) => (
           <ImpactCard 
             key={index}
-            category={category}
+            data={item}
+            dataSchema={{
+              title: 'category',
+              image: 'categoryImage'
+            }}
           />
         ))}
       </div>

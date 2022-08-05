@@ -45,7 +45,7 @@
         font-size: var(--fz-logo);
     }
     &__description{
-        line-height: 1.5em;
+        line-height: $line-height;
     }
 }
 .video {

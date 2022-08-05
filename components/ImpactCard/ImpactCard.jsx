@@ -3,12 +3,15 @@ import Link from "next/link";
 import styles from './impactCard.module.scss';
 import ImpactTitle from '../ImpactTitle';
 
-const ImpactCard = ({ category: { category, image } }) => {
+const ImpactCard = ({ data, dataSchema, opStyles }) => {
+  console.log('styles: ', opStyles);
+  const { title, description='', image } = dataSchema;
   return (
     <section
       className={styles['container']}
       style={{
-        backgroundImage: `url("${image}")`
+        backgroundImage: `url("${data[image]}")`,
+        ...opStyles
       }}
     >
       <ImpactTitle 
@@ -19,8 +22,13 @@ const ImpactCard = ({ category: { category, image } }) => {
           zIndex: 2
         }}
       >
-        {category}
+        {data[title]}
       </ImpactTitle>
+      {description && (
+        <p className={styles['description']}>
+          {data[description]}
+        </p>
+      )}
       <Link href='/'>
         <a className={styles['see-more-btn']}>
           Find out more

@@ -11,14 +11,26 @@
         position: center;
         size: cover;
     }
+    box-shadow: 0px 9px 12px -6px rgba(0, 0, 0, 0.91);
+
     &::after {
         content: '';
         @include absoluteBgBlackWithOpacity($opacity: .6, $zIndex: 1);
     }
 }
+.description,
+.see-more-btn {
+    z-index: 2;
+}
+.description {
+    margin-bottom: 2em;
+    padding: 0 2em;
+    text-align: center;
+    line-height: $line-height;
+    color: var(--white-clr);
+}
 .see-more-btn {
     @include defaultBtn;
     background-color: var(--white-clr);
-    color: var(--black-clr);
-    z-index: 2;
+    color: var(--black-clr)
 }
