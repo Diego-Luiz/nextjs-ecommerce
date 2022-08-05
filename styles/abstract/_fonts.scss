@@ -1,5 +1,6 @@
 //Rubik
 $fonts-path: '../../public/fonts/';
+
 @font-face{
     font-family: Rubik;
     src: url(#{$fonts-path}/Rubik/static/Rubik-Light.ttf) format("truetype");
@@ -195,13 +196,3 @@ $fonts-path: '../../public/fonts/';
     font-style: italic;
     font-weight: 900;
 }
-
-$font-normal: 'Rubik', sans-serif;
-$font-impact: 'Kanit', 'Arial Black', sans-serif;
-
-$sizes: (
-    'logo': 2rem,
-    'nav-list-items': 1.75rem,
-    'impact-title': 1.35rem,
-    'btn': .88rem
-);

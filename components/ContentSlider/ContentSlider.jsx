@@ -1,6 +1,10 @@
 import React from 'react';
-import ImpactCard from '../ImpactCard';
+import { 
+  IoIosArrowForward, 
+  IoIosArrowBack 
+} from 'react-icons/io';
 
+import ImpactCard from '../ImpactCard';
 import styles from './contentSlider.module.scss';
 
 const ContentSlider = ({ TagContainer, data }) => {
@@ -8,12 +12,28 @@ const ContentSlider = ({ TagContainer, data }) => {
     <TagContainer
       className={styles['container']}
     >
-      {data.map((category, index) => (
-        <ImpactCard 
-          key={index}
-          category={category}
-        />
-      ))}
+      <button
+        type="button"
+        className={styles['slide-fwd-btn']}
+      >
+        <span className="sr-only">See more sections</span>
+        <IoIosArrowForward />
+      </button>
+      <button
+        type="button"
+        className={styles['slide-back-btn']}
+      >
+        <span className="sr-only">Back to previous sections</span>
+        <IoIosArrowBack />
+      </button>
+      <div className={styles['container__content']}>
+        {data.map((category, index) => (
+          <ImpactCard 
+            key={index}
+            category={category}
+          />
+        ))}
+      </div>
     </TagContainer>
   );
 }

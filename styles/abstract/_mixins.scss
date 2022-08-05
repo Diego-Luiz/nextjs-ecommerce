@@ -1,3 +1,6 @@
+@use './variables' as *;
+
+//Element with position !== than static for being able to have absolute(s) children
 @mixin containerWithAbsItem($display: inline-block, $position: relative){
     @if $display == 'alreadySet'{
         position: $position;
@@ -8,7 +11,7 @@
 }
 @mixin defaultContainer {
     width: 100%;
-    padding: 1em;
+    padding: $defaultContainerPadding;
     box-sizing: border-box;
 }
 @mixin defaultLink($display: inline-block) {
@@ -18,7 +21,10 @@
 @mixin defaultBtn($display: inline-block, $bd-radius: 50px) {
     display: $display;
     padding: 1em 1.5em;
-    border-radius: $bd-radius;
+    border: {
+        style: none;
+        radius: $bd-radius;
+    }
     font-size: var(--fz-btn);
 }
 @mixin mediaQ($query, $withScreen: false) {
@@ -44,4 +50,14 @@
     @if $column == true {
         flex-direction: column;
     }
+}
+//Element with background black + opacity to show the content behind it
+@mixin absoluteBgBlackWithOpacity($opacity: .4, $zIndex){
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, $opacity);
+    position: absolute;
+    inset: 0;
+    z-index: $zIndex;
 }

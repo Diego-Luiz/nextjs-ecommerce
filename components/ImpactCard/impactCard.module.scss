@@ -2,16 +2,23 @@
 
 .container {
     @include displayFlexCentered($column: true);
-    justify-content: space-around;
+    @include containerWithAbsItem($display: 'alreadySet');
+    justify-content: space-evenly;
     min-height: 21.875em;
+    min-width: 15.625em;
     background: {
         color: var(--black-clr);
         position: center;
         size: cover;
+    }
+    &::after {
+        content: '';
+        @include absoluteBgBlackWithOpacity($opacity: .6, $zIndex: 1);
     }
 }
 .see-more-btn {
     @include defaultBtn;
     background-color: var(--white-clr);
     color: var(--black-clr);
+    z-index: 2;
 }

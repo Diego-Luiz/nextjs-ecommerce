@@ -1,7 +1,45 @@
 @use 'styles/abstract' as *;
 
 .container {
-    @include defaultContainer;
-    // @include displayFlexCentered;
-    background: gray;
+    @include containerWithAbsItem($display: 'alreadySet');
+    &__content {
+        @include defaultContainer;
+        @include displayFlexCentered;
+        justify-content: flex-start;
+        overflow: {
+            x: auto;
+            y: hidden;
+        }
+
+        [class*='container']:not(:last-child) {
+            margin-right: .625em;
+        }
+    }
+}
+.slide-back-btn,
+.slide-fwd-btn {
+    @include defaultBtn($bd-radius: 50%);
+    padding: 0.625rem;
+    position: absolute;
+    inset: 50% 0%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: max-content;
+    height: max-content;
+    font-size: 2.5rem;
+    background-color: rgba(0, 0, 0, .9);
+    color: var(--white-clr);
+
+    &>svg {
+        display: flex;
+        path {
+            stroke-width: 2.1875rem;
+        }
+    }
+}
+.slide-fwd-btn {
+    left: calc(100% - $defaultContainerPadding - .25em);
+}
+.slide-back-btn {
+    right: calc(100% - $defaultContainerPadding);
 }

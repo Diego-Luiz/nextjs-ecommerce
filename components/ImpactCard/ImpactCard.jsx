@@ -15,7 +15,8 @@ const ImpactCard = ({ category: { category, image } }) => {
         TitleLevel={'h3'}
         opStyles={{
           color: 'var(--white-clr)',
-          marginTop: '4em'
+          marginTop: '2em',
+          zIndex: 2
         }}
       >
         {category}
