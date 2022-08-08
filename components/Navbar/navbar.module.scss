@@ -1,7 +1,7 @@
 @use '../../styles/abstract' as *;
 
 .nav {
-    @include containerWithAbsItem($display: 'alreadySet');
+    @include containerWithAbsItem;
     display: flex;
     justify-content: space-between;
     align-items: center;

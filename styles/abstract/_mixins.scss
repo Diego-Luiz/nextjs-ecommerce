@@ -2,11 +2,11 @@
 
 //Element with position !== than static for being able to have absolute(s) children
 @mixin containerWithAbsItem($display: inline-block, $position: relative){
-    @if $display == 'alreadySet'{
+    @if $display != inline-block {
+        display: $display;
         position: $position;
     } @else {
         position: $position;
-        display: $display;
     }
 }
 @mixin defaultContainer {

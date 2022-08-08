@@ -1,7 +1,7 @@
 @use 'styles/abstract' as *;
 
 .container {
-    @include containerWithAbsItem($display: 'alreadySet');
+    @include containerWithAbsItem;
     @include defaultContainer;
     display: flex;
     justify-content: center;

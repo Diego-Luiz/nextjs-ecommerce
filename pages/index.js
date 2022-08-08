@@ -4,12 +4,13 @@ import {
   Carousel,
   ContentSlider,
   ImpactCard,
-  ImpactTitle
+  ImpactTitle,
+  Product
 } from 'components';
 import dataCarousel from 'data/contentsCarousel';
-// import dataSectionsSlider from 'data/contentHomePageSlider';
 import aboutProducts from 'data/aboutProducts';
 import { ECOMMERCE_NAME } from 'utils/constants';
+import testImg from 'public/images/homepage/another.jpg';
 import styles from 'styles/homepage/homepage.module.scss';
 
 const Home = ({ dataCarousel, aboutProducts }) => {
@@ -88,6 +89,66 @@ const Home = ({ dataCarousel, aboutProducts }) => {
         >
           Our most popular products
         </ImpactTitle>
+        <ul
+          className={styles['list']}
+        >
+          <li 
+            key="1"
+            className={styles['list__item']}
+          >
+            <Product 
+              product={{
+                title: 'Title product test',
+                image: testImg,
+                productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
+                price: '520.00'
+              }}
+              TitleTag='h3'
+            />
+          </li>
+          <li 
+            key="2"
+            className={styles['list__item']}
+          >
+            <Product 
+              product={{
+                title: '2 Title product test',
+                image: testImg,
+                productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
+                price: '520.00'
+              }}
+              TitleTag='h3'
+            />
+          </li>
+          <li 
+            key="3"
+            className={styles['list__item']}
+          >
+            <Product 
+              product={{
+                title: 'Title product test 3',
+                image: testImg,
+                productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
+                price: '520.00'
+              }}
+              TitleTag='h3'
+            />
+          </li>
+          <li 
+            key="4"
+            className={styles['list__item']}
+          >
+            <Product 
+              product={{
+                title: 'Title product test 4',
+                image: testImg,
+                productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
+                price: '520.00'
+              }}
+              TitleTag='h3'
+            />
+          </li>
+        </ul>
       </section>
     </>
   );

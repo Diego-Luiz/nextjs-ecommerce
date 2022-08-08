@@ -5,6 +5,7 @@ import Carousel from "./Carousel";
 import ImpactTitle from "./ImpactTitle";
 import ContentSlider from "./ContentSlider";
 import ImpactCard from "./ImpactCard";
+import Product from "./Product";
 
 export {
   Header,
@@ -13,5 +14,6 @@ export {
   Carousel,
   ImpactTitle,
   ContentSlider,
-  ImpactCard
+  ImpactCard,
+  Product
 };

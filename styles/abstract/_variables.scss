@@ -6,7 +6,8 @@ $sizes: (
     'logo': 2rem,
     'nav-list-items': 1.75rem,
     'impact-title': 1.35rem,
-    'btn': .88rem
+    'btn': .88rem,
+    'link': .88rem
 );
 
 //line-height
@@ -17,6 +18,7 @@ $defaultContainerPadding: 1em;
 //colors
 $colors: (
     "black": #212529,
+    "light-black": rgb(77, 77, 77),
     "white": #fff,
-    "gray": #f4f4f4
+    "gray": #f4f4f4,
 );

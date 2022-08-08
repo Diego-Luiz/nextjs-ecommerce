@@ -4,7 +4,6 @@ import styles from './impactCard.module.scss';
 import ImpactTitle from '../ImpactTitle';
 
 const ImpactCard = ({ data, dataSchema, opStyles }) => {
-  console.log('styles: ', opStyles);
   const { title, description='', image } = dataSchema;
   return (
     <section

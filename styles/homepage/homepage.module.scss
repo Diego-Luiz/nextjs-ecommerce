@@ -1,11 +1,21 @@
 @use '../abstract' as *;
 
 .products-category-section,
-.featured-sections {
+.featured-sections,
+.popular-products {
     @include defaultContainer;
 }
 .featured-sections {
     [class*='container']:nth-child(2) {
         margin-top: 1em;
+    }
+}
+.popular-products {
+    .list {
+        list-style: none;
+    
+        &__item {
+            padding: 0 .5em;
+        }
     }
 }

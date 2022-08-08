@@ -2,7 +2,7 @@
 
 .container {
     @include displayFlexCentered($column: true);
-    @include containerWithAbsItem($display: 'alreadySet');
+    @include containerWithAbsItem;
     justify-content: space-evenly;
     min-height: 21.875em;
     min-width: 15.625em;
@@ -30,7 +30,6 @@
     color: var(--white-clr);
 }
 .see-more-btn {
-    @include defaultBtn;
-    background-color: var(--white-clr);
-    color: var(--black-clr)
+    @include defaultLink;
+    color: var(--white-clr);
 }
