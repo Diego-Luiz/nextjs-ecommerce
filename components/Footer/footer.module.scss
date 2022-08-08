@@ -1,0 +1,22 @@
+@use 'styles/abstract' as *;
+
+.container {
+    @include defaultContainer;
+    background-color: var(--black-clr);
+    color: var(--white-clr);
+    
+    section {
+        padding: .5em 0;
+    }
+    a {
+        @include defaultLink;
+        font-size: var(--fz-link);
+        color: var(--gray-clr);
+    }
+    .more-about-link {
+        padding: .2em 0;
+    }
+}
+.section-title {
+    font-size: var(--fz-footer-title);
+}

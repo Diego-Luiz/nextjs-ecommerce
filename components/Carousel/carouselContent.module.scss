@@ -60,7 +60,6 @@
 .more-about-link {
     @include defaultLink;
     z-index: 4;
-    color: var(--white-clr);
     text-decoration: underline;
     &:after {
         content: '\2192';

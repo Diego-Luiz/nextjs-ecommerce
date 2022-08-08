@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Logo from "./Logo";
 import Layout from "./layout";
+import Footer from "./Footer";
 import Carousel from "./Carousel";
 import ImpactTitle from "./ImpactTitle";
 import ContentSlider from "./ContentSlider";
@@ -15,5 +16,6 @@ export {
   ImpactTitle,
   ContentSlider,
   ImpactCard,
-  Product
+  Product,
+  Footer
 };

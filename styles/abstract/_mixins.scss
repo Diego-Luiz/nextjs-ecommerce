@@ -17,6 +17,7 @@
 @mixin defaultLink($display: inline-block) {
     display: $display;
     padding: .75em;
+    color: var(--white-clr);
 }
 @mixin defaultBtn($display: inline-block, $bd-radius: 50px) {
     display: $display;

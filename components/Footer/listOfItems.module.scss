@@ -1,0 +1,25 @@
+@use 'styles/abstract' as *;
+
+.list {
+    list-style: none;
+    
+    &__item {
+        @include containerWithAbsItem;
+        a {
+            @include containerWithAbsItem;
+            padding: .5em 0 !important;
+        }
+    }
+    &.--rowFormat {
+        @include displayFlexCentered;
+        justify-content: flex-start;
+
+    }
+    &.--rowFormat &__item:not(:last-child) {
+        margin-right: .5em;
+    }
+    svg {
+        font-size: 1.85rem;
+        color: gray;
+    }
+}
