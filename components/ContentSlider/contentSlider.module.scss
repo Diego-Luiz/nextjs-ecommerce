@@ -11,7 +11,7 @@
             y: hidden;
         }
 
-        [class*='container']:not(:last-child) {
+        > *:not(:last-child) {
             margin-right: .625em;
         }
     }

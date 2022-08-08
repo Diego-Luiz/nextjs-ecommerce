@@ -46,10 +46,22 @@ const Home = ({ dataCarousel, aboutProducts }) => {
         >
           Here in {ECOMMERCE_NAME} you will have the best online shopping experience. With thousands of products and the best market prices.
         </ImpactTitle>
-        <ContentSlider 
+
+        <ContentSlider
           TagContainer={'div'}
-          data={aboutProducts}
-        />
+          ContentTag={'div'}
+        >
+          {aboutProducts.map((item, index) => (
+            <ImpactCard 
+              key={index}
+              data={item}
+              dataSchema={{
+                title: 'category',
+                image: 'categoryImage'
+              }}
+            />
+          ))}
+        </ContentSlider>
       </section>
       <section
         className={styles['featured-sections']}
@@ -89,12 +101,14 @@ const Home = ({ dataCarousel, aboutProducts }) => {
         >
           Our most popular products
         </ImpactTitle>
-        <ul
-          className={styles['list']}
+        <ContentSlider
+          TagContainer={'div'}
+          ContentTag={'ul'}
+          contentStyles={{ listStyle: 'none' }}
         >
           <li 
             key="1"
-            className={styles['list__item']}
+            className={styles['popular-products__list-item']}
           >
             <Product 
               product={{
@@ -108,7 +122,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
           </li>
           <li 
             key="2"
-            className={styles['list__item']}
+            className={styles['popular-products__list-item']}
           >
             <Product 
               product={{
@@ -122,7 +136,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
           </li>
           <li 
             key="3"
-            className={styles['list__item']}
+            className={styles['popular-products__list-item']}
           >
             <Product 
               product={{
@@ -136,7 +150,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
           </li>
           <li 
             key="4"
-            className={styles['list__item']}
+            className={styles['popular-products__list-item']}
           >
             <Product 
               product={{
@@ -148,7 +162,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
               TitleTag='h3'
             />
           </li>
-        </ul>
+        </ContentSlider>
       </section>
     </>
   );

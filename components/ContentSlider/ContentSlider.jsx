@@ -4,10 +4,9 @@ import {
   IoIosArrowBack 
 } from 'react-icons/io';
 
-import ImpactCard from '../ImpactCard';
 import styles from './contentSlider.module.scss';
 
-const ContentSlider = ({ TagContainer, data }) => {
+const ContentSlider = ({ TagContainer, ContentTag, contentStyles, children }) => {
   return (
     <TagContainer
       className={styles['container']}
@@ -26,18 +25,12 @@ const ContentSlider = ({ TagContainer, data }) => {
         <span className="sr-only">Back to previous sections</span>
         <IoIosArrowBack />
       </button>
-      <div className={styles['container__content']}>
-        {data.map((item, index) => (
-          <ImpactCard 
-            key={index}
-            data={item}
-            dataSchema={{
-              title: 'category',
-              image: 'categoryImage'
-            }}
-          />
-        ))}
-      </div>
+      <ContentTag 
+        className={styles['container__content']}
+        style={contentStyles || {}}
+      >
+        {children}
+      </ContentTag>
     </TagContainer>
   );
 }
