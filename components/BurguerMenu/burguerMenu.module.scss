@@ -1,0 +1,77 @@
+@use 'sass:math';
+@use 'styles/abstract' as *;
+
+$distanceYOfPseudoBars: 6px;
+$barsHeight: 2px;
+$halfBarsHeight: math.div($barsHeight, 2);
+$rotationAngle: 45deg;
+$scale: 1.2;
+$color: var(--light-black-clr);
+
+.btn {
+    @include containerWithAbsItem;
+    padding: .15em .15em;
+    background: none;
+    border: none;
+}
+.bars-container {
+    display: flex;
+
+    &__left,
+    &__right {
+        position: relative;
+        width: 10px;
+        height: $barsHeight;
+        background-color: $color;
+        transition: .5s;
+        &::before,
+        &::after {
+            content: '';
+            display: block;
+            width: inherit;
+            height: inherit;
+            position: absolute;
+            left: 0;
+            background-color: $color;
+            border-radius: inherit;
+            transition: inherit;
+        }
+        &::before { top: -$distanceYOfPseudoBars; }
+        &::after { top: $distanceYOfPseudoBars; }
+    }
+    &__left { border-radius: 5px 0 0 5px; }
+    &__right { border-radius: 0 5px 5px 0; }
+    //middle bars when the menu is active
+    &.--active &__left,
+    &.--active &__right {
+        background-color: transparent;
+    }
+    /*::before pseudo elements when the menu is active
+      - math.div(($barsHeight * 80), 100): to get 80% of the current barsHeight
+    */
+    &.--active &__left::before {
+        transform: 
+            rotate($rotationAngle) 
+            scaleX($scale) 
+            translate(math.div(($barsHeight * 80), 100), math.div($halfBarsHeight, 2));
+    }
+    &.--active &__right::before {
+        transform: 
+            rotate(-$rotationAngle) 
+            scaleX($scale) 
+            translate(math.div(($barsHeight * 80), -100), math.div($halfBarsHeight, 2));
+    }
+    //::after pseudo elements when the menu is active
+    &.--active &__left::after {
+        transform: 
+            rotate(-$rotationAngle) 
+            scaleX($scale) 
+            translate(math.div(($barsHeight * 80), 100), math.div($halfBarsHeight, -2));
+    }
+    &.--active &__right::after {
+        transform: 
+            rotate($rotationAngle) 
+            scaleX($scale) 
+            translate(math.div(($barsHeight * 80), -100), math.div($halfBarsHeight, -2));
+    }
+}

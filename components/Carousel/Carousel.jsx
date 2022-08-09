@@ -1,5 +1,7 @@
 import React, { 
-  useState
+  useState,
+  useEffect,
+  useRef
 } from 'react';
 
 import styles from './carousel.module.scss';
@@ -7,9 +9,21 @@ import CarouselContent from './CarouselContent';
 
 const Carousel = ({ ContainerTag, data }) => {
   const [contentIndex, setContentIndex] = useState(0);
+  const intervalFunc = useRef(null);
+  
+  useEffect(() => {
+    intervalFunc.current = setInterval(() => {
+      handleIndexDataChange(contentIndex + 1);
+    }, 5000);
+    return () => {
+      clearInterval(intervalFunc.current);
+      intervalFunc.current = null;
+    };
+  }, [intervalFunc.current]);
 
-  const handleIndexBtnClick = index => {
-    if(index !== contentIndex) setContentIndex(index);
+  const handleIndexDataChange = index => {
+    let newIndex = index + 1 > data.length ? 0 : index; 
+    if(newIndex !== contentIndex) setContentIndex(newIndex);
   };
   
   return (
@@ -29,7 +43,7 @@ const Carousel = ({ ContainerTag, data }) => {
           type='button'
           key={index}
           className={styles['btnIndex']}
-          onClick={() => { handleIndexBtnClick(index); }}
+          onClick={() => { handleIndexDataChange(index); }}
         >
         </button>
       ))}

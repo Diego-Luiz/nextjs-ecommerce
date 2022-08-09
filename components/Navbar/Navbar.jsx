@@ -4,7 +4,7 @@ import { BiUser } from 'react-icons/bi';
 import { useState } from 'react';
 
 import Cart from '../Cart';
-import MenuHamburguer from '../MenuHamburguer';
+import BurguerMenu from '../BurguerMenu';
 import Logo from '../Logo';
 import styles from './navbar.module.scss';
 
@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className={styles['nav']}>
       <div className={styles['menu-container']}>
-        <MenuHamburguer 
+        <BurguerMenu
           isMenuOpened={isMenuOpened}
           setIsMenuOpened={setIsMenuOpened}
         />
@@ -40,7 +40,7 @@ const Navbar = () => {
         </ul>
       </div>
       <Logo TitleLevel={'h1'}/>
-      <div>
+      <div className={styles['user-container']}>
         <button
           type='button'
           onClick={handleUserClick}
