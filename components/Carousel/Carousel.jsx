@@ -9,21 +9,41 @@ import CarouselContent from './CarouselContent';
 
 const Carousel = ({ ContainerTag, data }) => {
   const [contentIndex, setContentIndex] = useState(0);
+  const [indexManuallySetted, setIndexManuallySetted] = useState(false);
   const intervalFunc = useRef(null);
+
+  const initIntervalFunc = () => {
+    intervalFunc.current = setInterval(() => {
+      setContentIndex(prevIndex => prevIndex + 1 >= data.length ? 0 : prevIndex + 1);
+    }, 6000);
+  };
+  const resetIntervalFunc = () => {
+    clearInterval(intervalFunc.current);
+    intervalFunc.current = null;
+  };
   
   useEffect(() => {
-    intervalFunc.current = setInterval(() => {
-      handleIndexDataChange(contentIndex + 1);
-    }, 5000);
+    initIntervalFunc();
     return () => {
-      clearInterval(intervalFunc.current);
-      intervalFunc.current = null;
+      resetIntervalFunc();
     };
-  }, [intervalFunc.current]);
+  }, []);
+
+  useEffect(() => {
+    if(indexManuallySetted) {
+      resetIntervalFunc();
+      setTimeout(() => {
+        initIntervalFunc();
+        setIndexManuallySetted(false);
+      }, 6000);
+    }
+  }, [indexManuallySetted]);
 
   const handleIndexDataChange = index => {
-    let newIndex = index + 1 > data.length ? 0 : index; 
-    if(newIndex !== contentIndex) setContentIndex(newIndex);
+    if(index !== contentIndex) {
+      setContentIndex(index);
+      setIndexManuallySetted(true);
+    }
   };
   
   return (
