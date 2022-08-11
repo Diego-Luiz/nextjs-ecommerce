@@ -2,17 +2,19 @@
 
 .container {
     @include containerWithAbsItem;
+    overflow: hidden;
     &__content {
         @include defaultContainer;
         @include displayFlexCentered;
+        position: relative;
+        inset: 0;
+        width: max-content;
         justify-content: flex-start;
-        overflow: {
-            x: auto;
-            y: hidden;
-        }
-
+        overflow: visible;
+        transition: transform .5s;
+        
         > *:not(:last-child) {
-            margin-right: .625em;
+            margin-right: $defaultContainerPadding;
         }
     }
 }
@@ -30,7 +32,7 @@
     background-color: rgba(0, 0, 0, .9);
     color: var(--white-clr);
 
-    &>svg {
+    & > svg {
         display: flex;
         path {
             stroke-width: 2.1875rem;

@@ -1,16 +1,21 @@
+import React, { useEffect } from "react";
 import Link from "next/link";
 
 import styles from './impactCard.module.scss';
 import ImpactTitle from '../ImpactTitle';
 
-const ImpactCard = ({ data, dataSchema, opStyles }) => {
+const ImpactCard = ({ data, dataSchema, opStyles, refRelatedTo }, ref) => {
   const { title, description='', image } = dataSchema;
+
   return (
     <section
       className={styles['container']}
       style={{
         backgroundImage: `url("${data[image]}")`,
         ...opStyles
+      }}
+      ref={(element) => {
+        if(ref) ref.current.set(refRelatedTo, element);
       }}
     >
       <ImpactTitle 
@@ -37,4 +42,4 @@ const ImpactCard = ({ data, dataSchema, opStyles }) => {
   );
 }
 
-export default ImpactCard;
+export default React.forwardRef(ImpactCard);

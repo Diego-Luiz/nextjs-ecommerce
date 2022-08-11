@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useRef } from 'react';
 
 import { 
   Carousel,
@@ -14,6 +15,7 @@ import testImg from 'public/images/homepage/another.jpg';
 import styles from 'styles/homepage/homepage.module.scss';
 
 const Home = ({ dataCarousel, aboutProducts }) => {
+  const slidersRefs = useRef(new Map());
   const groupOfProducts = [];
   const productsByGroup = new Map();
   aboutProducts.forEach(item => {
@@ -26,6 +28,10 @@ const Home = ({ dataCarousel, aboutProducts }) => {
     }
     productsByGroup.set(item.group, itemsToSet);
   });
+  const getContentWidth = fieldName => {
+    const content = slidersRefs.current.get(fieldName);
+    return content?.getBoundingClientRect().width || 0;
+  };
   return (
     <>
       <Head>
@@ -50,17 +56,34 @@ const Home = ({ dataCarousel, aboutProducts }) => {
         <ContentSlider
           TagContainer={'div'}
           ContentTag={'div'}
+          getContentWidth={() => getContentWidth('productCategory')}
         >
-          {aboutProducts.map((item, index) => (
-            <ImpactCard 
-              key={index}
-              data={item}
-              dataSchema={{
-                title: 'category',
-                image: 'categoryImage'
-              }}
-            />
-          ))}
+          {aboutProducts.map((item, index) => {
+            if(!index) {
+              return (
+                <ImpactCard 
+                  key={index}
+                  data={item}
+                  dataSchema={{
+                    title: 'category',
+                    image: 'categoryImage'
+                  }}
+                  refRelatedTo='productCategory'
+                  ref={slidersRefs}
+                />
+              )
+            }  
+            return (
+              <ImpactCard 
+                key={index}
+                data={item}
+                dataSchema={{
+                  title: 'category',
+                  image: 'categoryImage'
+                }}
+              />
+            );
+          })}
         </ContentSlider>
       </section>
       <section
@@ -101,7 +124,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
         >
           Our most popular products
         </ImpactTitle>
-        <ContentSlider
+        {/* <ContentSlider
           TagContainer={'div'}
           ContentTag={'ul'}
           contentStyles={{ listStyle: 'none' }}
@@ -162,7 +185,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
               TitleTag='h3'
             />
           </li>
-        </ContentSlider>
+        </ContentSlider> */}
       </section>
     </>
   );
