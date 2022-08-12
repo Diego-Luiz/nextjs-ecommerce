@@ -1,0 +1,11 @@
+@use 'styles/abstract' as *;
+
+.container {
+    @include defaultContainer;
+}
+.search-section {
+    @include displayFlexCentered;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 5px;
+}
