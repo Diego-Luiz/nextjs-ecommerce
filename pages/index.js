@@ -7,12 +7,12 @@ import {
   ImpactCard,
   ImpactTitle,
   Product
-} from 'components';
+} from 'components/ui';
 import dataCarousel from 'data/contentsCarousel';
 import aboutProducts from 'data/aboutProducts';
 import { ECOMMERCE_NAME } from 'utils/constants';
 import testImg from 'public/images/homepage/another.jpg';
-import styles from 'styles/homepage/homepage.module.scss';
+import styles from 'styles/pages/homepage.module.scss';
 
 const Home = ({ dataCarousel, aboutProducts }) => {
   const slidersRefs = useRef(new Map());
