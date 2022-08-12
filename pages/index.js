@@ -124,10 +124,11 @@ const Home = ({ dataCarousel, aboutProducts }) => {
         >
           Our most popular products
         </ImpactTitle>
-        {/* <ContentSlider
+        <ContentSlider
           TagContainer={'div'}
           ContentTag={'ul'}
           contentStyles={{ listStyle: 'none' }}
+          getContentWidth={() => getContentWidth('popularProducts')}
         >
           <li 
             key="1"
@@ -141,6 +142,8 @@ const Home = ({ dataCarousel, aboutProducts }) => {
                 price: '520.00'
               }}
               TitleTag='h3'
+              refRelatedTo='popularProducts'
+              ref={slidersRefs}
             />
           </li>
           <li 
@@ -185,7 +188,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
               TitleTag='h3'
             />
           </li>
-        </ContentSlider> */}
+        </ContentSlider>
       </section>
     </>
   );

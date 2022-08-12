@@ -1,13 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
+import React from 'react';
 
 import styles from './product.module.scss';
 
-const Product = ({ product, TitleTag }) => {
+const Product = ({ product, TitleTag, refRelatedTo }, ref) => {
   return (
     <Link href="/">
       <a
         className={styles['container']}
+        ref={(element) => {
+          if(ref) ref.current.set(refRelatedTo, element);
+        }}
       >
         <article>
           <div className={styles['image-container']}>
@@ -46,4 +50,4 @@ const Product = ({ product, TitleTag }) => {
   );
 }
 
-export default Product;
+export default React.forwardRef(Product);
