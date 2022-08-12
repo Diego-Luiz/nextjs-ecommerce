@@ -1,8 +1,13 @@
 @use 'styles/abstract/variables' as *;
 
+.container,
+.logo {
+    display: inline-block;
+}
 .logo {
     font-family: $font-impact;
     font-style: italic;
     font-size: var(--fz-logo);
     font-weight: 600;
+    color: var(--black-clr);
 }

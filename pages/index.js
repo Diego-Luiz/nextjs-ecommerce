@@ -44,22 +44,36 @@ const Home = ({ dataCarousel, aboutProducts }) => {
         ContainerTag='section'
         data={dataCarousel}
       />
-      <section
-        className={styles['products-category-section']}
-      >
-        <ImpactTitle
-          TitleLevel={'h2'}
+      <main>
+        <section
+          className={styles['products-category-section']}
         >
-          Here in {ECOMMERCE_NAME} you will have the best online shopping experience. With thousands of products and the best market prices.
-        </ImpactTitle>
+          <ImpactTitle
+            TitleLevel={'h2'}
+          >
+            Here in {ECOMMERCE_NAME} you will have the best online shopping experience. With thousands of products and the best market prices.
+          </ImpactTitle>
 
-        <ContentSlider
-          TagContainer={'div'}
-          ContentTag={'div'}
-          getContentWidth={() => getContentWidth('productCategory')}
-        >
-          {aboutProducts.map((item, index) => {
-            if(!index) {
+          <ContentSlider
+            TagContainer={'div'}
+            ContentTag={'div'}
+            getContentWidth={() => getContentWidth('productCategory')}
+          >
+            {aboutProducts.map((item, index) => {
+              if(!index) {
+                return (
+                  <ImpactCard 
+                    key={index}
+                    data={item}
+                    dataSchema={{
+                      title: 'category',
+                      image: 'categoryImage'
+                    }}
+                    refRelatedTo='productCategory'
+                    ref={slidersRefs}
+                  />
+                )
+              }  
               return (
                 <ImpactCard 
                   key={index}
@@ -68,128 +82,116 @@ const Home = ({ dataCarousel, aboutProducts }) => {
                     title: 'category',
                     image: 'categoryImage'
                   }}
-                  refRelatedTo='productCategory'
-                  ref={slidersRefs}
                 />
-              )
-            }  
-            return (
-              <ImpactCard 
-                key={index}
-                data={item}
-                dataSchema={{
-                  title: 'category',
-                  image: 'categoryImage'
+              );
+            })}
+          </ContentSlider>
+        </section>
+        <section
+          className={styles['featured-sections']}
+        >
+          <ImpactCard 
+            data={
+              productsByGroup.get(groupOfProducts[0])[0]
+            }
+            dataSchema={{
+              title: 'group',
+              description: 'groupDescription',
+              image: 'groupImage'
+            }}
+            opStyles={{
+              justifyContent: 'center'
+            }}
+          />
+          <ImpactCard 
+            data={
+              productsByGroup.get(groupOfProducts[1])[0]
+            }
+            dataSchema={{
+              title: 'group',
+              description: 'groupDescription',
+              image: 'groupImage'
+            }}
+            opStyles={{
+              justifyContent: 'center'
+            }}
+          />
+        </section>
+        <section
+          className={styles['popular-products']}
+        > 
+          <ImpactTitle
+            TitleLevel={'h2'}
+          >
+            Our most popular products
+          </ImpactTitle>
+          <ContentSlider
+            TagContainer={'div'}
+            ContentTag={'ul'}
+            contentStyles={{ listStyle: 'none' }}
+            getContentWidth={() => getContentWidth('popularProducts')}
+          >
+            <li 
+              key="1"
+              className={styles['popular-products__list-item']}
+            >
+              <Product 
+                product={{
+                  title: 'Title product test',
+                  image: testImg,
+                  productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
+                  price: '520.00'
                 }}
+                TitleTag='h3'
+                refRelatedTo='popularProducts'
+                ref={slidersRefs}
               />
-            );
-          })}
-        </ContentSlider>
-      </section>
-      <section
-        className={styles['featured-sections']}
-      >
-        <ImpactCard 
-          data={
-            productsByGroup.get(groupOfProducts[0])[0]
-          }
-          dataSchema={{
-            title: 'group',
-            description: 'groupDescription',
-            image: 'groupImage'
-          }}
-          opStyles={{
-            justifyContent: 'center'
-          }}
-        />
-        <ImpactCard 
-          data={
-            productsByGroup.get(groupOfProducts[1])[0]
-          }
-          dataSchema={{
-            title: 'group',
-            description: 'groupDescription',
-            image: 'groupImage'
-          }}
-          opStyles={{
-            justifyContent: 'center'
-          }}
-        />
-      </section>
-      <section
-        className={styles['popular-products']}
-      > 
-        <ImpactTitle
-          TitleLevel={'h2'}
-        >
-          Our most popular products
-        </ImpactTitle>
-        <ContentSlider
-          TagContainer={'div'}
-          ContentTag={'ul'}
-          contentStyles={{ listStyle: 'none' }}
-          getContentWidth={() => getContentWidth('popularProducts')}
-        >
-          <li 
-            key="1"
-            className={styles['popular-products__list-item']}
-          >
-            <Product 
-              product={{
-                title: 'Title product test',
-                image: testImg,
-                productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
-                price: '520.00'
-              }}
-              TitleTag='h3'
-              refRelatedTo='popularProducts'
-              ref={slidersRefs}
-            />
-          </li>
-          <li 
-            key="2"
-            className={styles['popular-products__list-item']}
-          >
-            <Product 
-              product={{
-                title: '2 Title product test',
-                image: testImg,
-                productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
-                price: '520.00'
-              }}
-              TitleTag='h3'
-            />
-          </li>
-          <li 
-            key="3"
-            className={styles['popular-products__list-item']}
-          >
-            <Product 
-              product={{
-                title: 'Title product test 3',
-                image: testImg,
-                productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
-                price: '520.00'
-              }}
-              TitleTag='h3'
-            />
-          </li>
-          <li 
-            key="4"
-            className={styles['popular-products__list-item']}
-          >
-            <Product 
-              product={{
-                title: 'Title product test 4',
-                image: testImg,
-                productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
-                price: '520.00'
-              }}
-              TitleTag='h3'
-            />
-          </li>
-        </ContentSlider>
-      </section>
+            </li>
+            <li 
+              key="2"
+              className={styles['popular-products__list-item']}
+            >
+              <Product 
+                product={{
+                  title: '2 Title product test',
+                  image: testImg,
+                  productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
+                  price: '520.00'
+                }}
+                TitleTag='h3'
+              />
+            </li>
+            <li 
+              key="3"
+              className={styles['popular-products__list-item']}
+            >
+              <Product 
+                product={{
+                  title: 'Title product test 3',
+                  image: testImg,
+                  productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
+                  price: '520.00'
+                }}
+                TitleTag='h3'
+              />
+            </li>
+            <li 
+              key="4"
+              className={styles['popular-products__list-item']}
+            >
+              <Product 
+                product={{
+                  title: 'Title product test 4',
+                  image: testImg,
+                  productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
+                  price: '520.00'
+                }}
+                TitleTag='h3'
+              />
+            </li>
+          </ContentSlider>
+        </section>
+      </main>
     </>
   );
 };

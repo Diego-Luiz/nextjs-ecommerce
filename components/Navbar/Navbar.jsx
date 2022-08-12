@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import { BiUser } from 'react-icons/bi';
 
-import { useState } from 'react';
+import { 
+  useState,
+  useEffect
+} from 'react';
 
 import Cart from '../Cart';
 import BurguerMenu from '../BurguerMenu';
@@ -10,6 +13,11 @@ import styles from './navbar.module.scss';
 
 const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
+  
+  useEffect(() => {
+    if(isMenuOpened) setIsMenuOpened(false);
+  }, []);
+
   const handleUserClick = () => {
     console.log('handling click');
   };
