@@ -1,14 +1,35 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 import { AiOutlineFilter } from 'react-icons/ai';
-import { BiSortAlt2 } from 'react-icons/bi';
+import { RiArrowDownSLine } from 'react-icons/ri';
 
 import { 
   SearchInputProduct,
-  ActionBtn
+  ActionBtn,
+  SelectElement
 } from 'components/pages/shop';
 import styles from 'styles/pages/shop.module.scss';
 
 const Shop = () => {
+  const [orderBy, setOrderBy] = useState('');
+  const [selectBoxStatus, setSelectBoxStatus] = useState(false);
+  const orderOptionSelected = useRef(null);
+  
+  // Active or deactivate the select element
+  const toggleOrderSelect = () => {
+    setSelectBoxStatus(prevState => !prevState);
+  };
+  // change the actual orderBy value and also set the aria-selected attribute accordingly to the active element in the DOM
+  const setOrderOptionSelected = (element) => {
+    const target = element.target;
+    const targetValue = target.getAttribute('value');
+    if(orderBy === targetValue) return;
+    orderOptionSelected.current?.setAttribute('aria-selected', false);
+    target.setAttribute('aria-selected', true);
+    orderOptionSelected.current = target;
+    setOrderBy(targetValue);
+    toggleOrderSelect();
+  };
+
   return (
     <div 
       className={styles['container']}
@@ -27,26 +48,47 @@ const Shop = () => {
         <SearchInputProduct />
         <ActionBtn 
           text='Filters'
-          icon={<AiOutlineFilter />}
+          icon={{
+            position: 'left',
+            src: <AiOutlineFilter />
+          }}
         />
-        <ActionBtn 
-          text='Sort'
-          icon={<BiSortAlt2 />}
-        />
+        <div className={styles['sort-container']}>
+          <ActionBtn 
+            text='Sort'
+            icon={{
+              position: 'right',
+              src: <RiArrowDownSLine />,
+              animationStyle: {
+                transform: 'rotate(180deg)'
+              },
+              animationTrigger: selectBoxStatus
+            }}
+            handleClick={toggleOrderSelect}
+            ariaAttributes={{
+              controls: 'select-sort',
+              expanded: selectBoxStatus
+            }}
+          />
+          <SelectElement 
+            handleOptionClick={setOrderOptionSelected}
+            selectValue={orderBy}
+            boxStatus={selectBoxStatus}
+            ariaLabelledBy={"text-sort-section"}
+          />
+        </div>
       </section>
       {/* main = container for: filter, products box, sort */}
       <main>
-        <section>
-          <h3>Filters</h3>...
-        </section>
-        <section>
-          <h3>Sort</h3>...
+        <section className={styles['filters-section']}>
+          <h3>Filters</h3>
         </section>
         <div>
           <section className={styles['results-info']}>
             <h3 className={styles['results-info__received-input']}>
               Results for: <span>Phone</span>
             </h3>
+            <p className={styles['results-info__orded-value']}>Orded by: {orderBy}</p>
             <p className={styles['results-info__total-products']}>
               <span>501</span>products
             </p>

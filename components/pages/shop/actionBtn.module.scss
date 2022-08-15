@@ -4,4 +4,13 @@
     @include defaultBtn;
     @include displayFlexCentered; 
     padding: .35em .75em;
+
+    .icon {
+      display: flex;
+      transition: all .2s; 
+
+      &.--right {
+        margin-left: .15ch;
+      }
+    }
 }
