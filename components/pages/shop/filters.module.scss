@@ -1,0 +1,28 @@
+%flex-column {
+    display: flex;
+    flex-direction: column;
+    max-width: max-content;
+}
+.container {
+    @extend %flex-column;
+}
+.brand-section,
+.category-section {
+    @extend %flex-column;
+    &__title {
+        padding: .5em 0;
+        font-weight: 500;
+        font-size: 1.05rem;
+    }
+}
+.section__list {
+    list-style: none;
+    padding: .5em 0;
+
+    li {
+        max-width: max-content;
+        &:not(:first-child) {
+            margin-top: .5em;
+        }
+    }
+}

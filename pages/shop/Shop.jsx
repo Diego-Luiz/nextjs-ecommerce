@@ -5,7 +5,8 @@ import { RiArrowDownSLine } from 'react-icons/ri';
 import { 
   SearchInputProduct,
   ActionBtn,
-  SelectElement
+  SelectElement,
+  Filters
 } from 'components/pages/shop';
 import styles from 'styles/pages/shop.module.scss';
 
@@ -77,12 +78,11 @@ const Shop = () => {
             ariaLabelledBy={"text-sort-section"}
           />
         </div>
+        
+        <Filters />
       </section>
       {/* main = container for: filter, products box, sort */}
       <main>
-        <section className={styles['filters-section']}>
-          <h3>Filters</h3>
-        </section>
         <div>
           <section className={styles['results-info']}>
             <h3 className={styles['results-info__received-input']}>

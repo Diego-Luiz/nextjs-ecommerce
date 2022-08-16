@@ -7,6 +7,7 @@ import ImpactTitle from "./ImpactTitle";
 import ContentSlider from "./ContentSlider";
 import ImpactCard from "./ImpactCard";
 import Product from "./Product";
+import Checkbox from "./Checkbox";
 
 export {
   Header,
@@ -17,5 +18,6 @@ export {
   ContentSlider,
   ImpactCard,
   Product,
-  Footer
+  Footer,
+  Checkbox
 };

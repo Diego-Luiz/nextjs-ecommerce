@@ -1,0 +1,43 @@
+@use 'sass:math';
+@use 'styles/abstract' as *;
+
+.container {
+    display: flex;
+    align-items: center;
+    max-width: max-content;
+    gap: .5ch;
+
+    * { cursor: pointer; }
+}
+.input {
+    $size: 20px;
+    @include displayFlexCentered;
+    appearance: none;
+    width: $size;
+    height: $size;
+    border: solid 1px rgba(0, 0, 0, .2);
+    border-radius: 3px;
+    transition: background-color .2s;
+
+    &::after {
+        $size: 70%;
+        content: '';
+        display: inline-block;
+        width: $size;
+        max-width: $size;
+        height: $size;
+        max-height: $size;
+        box-sizing: border-box;
+        box-shadow: inset 100px 100px var(--white-clr);
+        -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        transform: scale(0);
+        transition: transform .2s;
+    }
+
+    &:checked {
+        background-color: var(--black-clr);
+        &::after { transform: scale(1); }
+    }
+}
+.label { display: inline-block; }
