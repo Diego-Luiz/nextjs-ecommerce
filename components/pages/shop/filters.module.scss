@@ -1,3 +1,10 @@
+@use 'styles/abstract' as *;
+
+%titles-style {
+    padding: .5em 0;
+    font-weight: 500;
+    font-size: 1.05rem;
+}
 %flex-column {
     display: flex;
     flex-direction: column;
@@ -5,14 +12,21 @@
 }
 .container {
     @extend %flex-column;
+    padding: .75em 1em;
 }
 .brand-section,
 .category-section {
     @extend %flex-column;
-    &__title {
-        padding: .5em 0;
-        font-weight: 500;
-        font-size: 1.05rem;
+    &__title { @extend %titles-style; }
+}
+.price-section {
+    @include displayFlexCentered;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &__title { 
+        @extend %titles-style; 
+        width: 100%;
     }
 }
 .section__list {

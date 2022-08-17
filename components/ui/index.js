@@ -8,6 +8,7 @@ import ContentSlider from "./ContentSlider";
 import ImpactCard from "./ImpactCard";
 import Product from "./Product";
 import Checkbox from "./Checkbox";
+import InputTextAndNumber from "./InputTextAndNumber";
 
 export {
   Header,
@@ -19,5 +20,6 @@ export {
   ImpactCard,
   Product,
   Footer,
-  Checkbox
+  Checkbox,
+  InputTextAndNumber
 };

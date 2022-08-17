@@ -1,0 +1,23 @@
+@use 'styles/abstract' as *;
+
+.container {
+    @include displayFlexCentered; 
+    width: 45%; 
+}
+.label,
+.input {
+    display: inline-block;
+}
+.input { 
+    max-width: 4ch;
+    margin-left: .4em;
+    @extend %thin-gray-border;
+    
+    &[type=number]::-webkit-outer-spin-button,
+    &[type=number]::-webkit-inner-spin-button,
+    &[type=number] {
+        -webkit-appearance: none;
+        -moz-appearance: textfield;
+    }
+}
+
