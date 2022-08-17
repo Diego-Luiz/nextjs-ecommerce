@@ -8,11 +8,13 @@ import {
   SelectElement,
   Filters
 } from 'components/pages/shop';
+import { Portal } from 'components/ui';
 import styles from 'styles/pages/shop.module.scss';
 
 const Shop = () => {
   const [orderBy, setOrderBy] = useState('');
   const [selectBoxStatus, setSelectBoxStatus] = useState(false);
+  const [filterSectionStatus, setFilterSectionStatus] = useState(false);
   const orderOptionSelected = useRef(null);
   
   // Active or deactivate the select element
@@ -30,7 +32,10 @@ const Shop = () => {
     setOrderBy(targetValue);
     toggleOrderSelect();
   };
-
+  const toggleFilterSection = () => {
+    setFilterSectionStatus(prevState => !prevState);
+  };
+  
   return (
     <div 
       className={styles['container']}
@@ -53,6 +58,8 @@ const Shop = () => {
             position: 'left',
             src: <AiOutlineFilter />
           }}
+          handleClick={toggleFilterSection}
+          aria-controls='filters-container-id'
         />
         <div className={styles['sort-container']}>
           <ActionBtn 
@@ -66,10 +73,8 @@ const Shop = () => {
               animationTrigger: selectBoxStatus
             }}
             handleClick={toggleOrderSelect}
-            ariaAttributes={{
-              controls: 'select-sort',
-              expanded: selectBoxStatus
-            }}
+            aria-controls='select-sort'
+            aria-expanded={selectBoxStatus}
           />
           <SelectElement 
             handleOptionClick={setOrderOptionSelected}
@@ -78,8 +83,14 @@ const Shop = () => {
             ariaLabelledBy={"text-sort-section"}
           />
         </div>
-        
-        <Filters />
+        {filterSectionStatus && (
+          <Portal>
+            <Filters 
+              toggleFilterSection={toggleFilterSection}
+            />
+          </Portal>
+        )}
+        {/* <Filters /> */}
       </section>
       {/* main = container for: filter, products box, sort */}
       <main>

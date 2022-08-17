@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { 
+  useState,
+  useEffect
+} from 'react';
+import { IoIosCloseCircle } from 'react-icons/io';
+
 import { 
   Checkbox,
   InputTextAndNumber
 } from 'components/ui';
+import { TOGGLE_PORTAL_ANIMATION_TIME } from 'utils/constants';
 import styles from './filters.module.scss';
 
-const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1', 'category2'] }) => {
+const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1', 'category2'], toggleFilterSection }) => {
   const [checkBoxFiltersStatus, setCheckBoxFiltersStatus] = useState(() => {
     const brandsObj = {};
     const categoriesObj = {};
@@ -17,7 +23,13 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
     ]);
   });
   const [priceFilters, setPriceFilters] = useState({ min: '1', max: '1000' });
-  
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsMounted(true);
+    }, TOGGLE_PORTAL_ANIMATION_TIME);
+    return () => setIsMounted(false);
+  }, []);
   const getChkboxStatus = (filterField, filterElement) => checkBoxFiltersStatus.get(filterField)[filterElement];
   const handleChkboxFiltersChange = (filterField, filterElement) => {
     const fieldObject = { ...checkBoxFiltersStatus.get(filterField) };
@@ -41,10 +53,30 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
       setPriceFilters(prevState => ({ ...prevState, [field]: resetedValue}));
     } 
   }
+  const closeContainerAnimation = () => {
+    setIsMounted(false);
+    setTimeout(() => {
+      toggleFilterSection();
+    }, TOGGLE_PORTAL_ANIMATION_TIME + 500);
+    // +500 is the slide animation time
+  }
   return (
     <section
-      className={styles['container']}
+      className={[
+        styles['container'],
+        `${isMounted ? styles['--active']: ''}`
+      ].join(' ')}
+      id="filters-container-id"
     >
+      <button 
+        type='button'
+        className={styles['close-btn']}
+        onClick={closeContainerAnimation}
+      >
+        <span className='sr-only'>Close filters</span>
+        <IoIosCloseCircle />
+      </button>
+      <h2 className={styles['container__title']}>Filters</h2>
       <section className={styles['brand-section']}>
         <h4 className={styles['brand-section__title']}>Brand</h4>
         <ul className={styles['section__list']}>

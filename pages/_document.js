@@ -11,7 +11,7 @@ const _document = () => {
       <Head>
         <body>
           <Main />
-          <div id="portal"/>
+          <div id="root-portal"/>
           <NextScript />
         </body>
       </Head>

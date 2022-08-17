@@ -6,15 +6,14 @@ import styles from './actionBtn.module.scss';
   - ariaAttributes: object with all aria attributes content (aria-controls, expanded, etc)
   - handleClick: the function executed when an option is selected
 */
-const ActionBtn = ({icon={}, text, ariaAttributes={}, handleClick }) => {
+const ActionBtn = ({icon={}, text, handleClick, ...opAttributes }) => {
   const animationStyle = icon?.animationTrigger ? icon.animationStyle : {};
   return (
     <button
       type='button'
       className={styles['btn']}
-      aria-controls={ariaAttributes?.controls}
-      aria-expanded={ariaAttributes?.expanded}
       onClick={handleClick}
+      {...opAttributes}
     >
       {icon?.position === 'left'  
         && (<div 
