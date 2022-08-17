@@ -90,7 +90,6 @@ const Shop = () => {
             />
           </Portal>
         )}
-        {/* <Filters /> */}
       </section>
       {/* main = container for: filter, products box, sort */}
       <main>

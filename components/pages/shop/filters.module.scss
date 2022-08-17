@@ -27,6 +27,7 @@
     }
 
     &__title {
+        margin-bottom: .5em;
         font-family: $font-impact;
         font-weight: 500;
         color: var(--black-clr);
@@ -44,39 +45,51 @@
     color: var(--black-clr);
     font-size: var(--fz-logo);
 }
-.brand-section,
-.category-section {
-    @extend %flex-column;
-    &__title { @extend %titles-style; }
-}
-.price-section {
-    @include displayFlexCentered;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    width: 100%;
+    box-sizing: border-box;
 
-    &__title { 
-        @extend %titles-style; 
-        width: 100%;
-    }
-}
-.brand-section,
-.price-section {
-    border-bottom: solid 1px var(--light-gray-clr);
-}
-.brand-section,
-.price-section,
-.category-section{
-    padding: 1.25em 0;
-    max-width: 100%;
-}
-.section__list {
-    list-style: none;
-    padding: .5em 0;
+    &__fieldset {
+        display: inline-block;
+        border: none;
+        padding: .5em 0;
+        max-width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
 
-    li {
-        max-width: max-content;
-        &:not(:first-child) {
-            margin-top: .5em;
+        &:not(:last-of-type) {
+            border-bottom: solid 1px var(--light-gray-clr);
         }
+
     }
+}
+.fieldset__title {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.price-inputs-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: .5em;
+}
+
+.buttons-container {
+    @include displayFlexCentered;
+    justify-content: flex-end;
+    column-gap: 1em;
+    margin-top: .75em;
+}
+.reset-btn,
+.submit-btn {
+    @include defaultBtn;
+    border-radius: 10px;
+    font-size: var(--fz-link) + .5rem;
+    cursor: pointer;
+}
+.submit-btn {
+    background-color: var(--black-clr);
+    color: var(--white-clr);
 }

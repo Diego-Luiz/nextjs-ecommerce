@@ -24,12 +24,27 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
   });
   const [priceFilters, setPriceFilters] = useState({ min: '1', max: '1000' });
   const [isMounted, setIsMounted] = useState(false);
+  
   useEffect(() => {
     setTimeout(() => {
       setIsMounted(true);
     }, TOGGLE_PORTAL_ANIMATION_TIME);
     return () => setIsMounted(false);
   }, []);
+
+  const resetMap = mapElement => {
+    const resetedMap = new Map();
+    for(let [key, value] of mapElement) {
+      let auxArr = ['', null];
+      auxArr[0] = key;
+      auxArr[1] = {...value};
+      for(let indexInValue in auxArr[1]){
+        auxArr[1][indexInValue] = false;
+      }
+      resetedMap.set(auxArr[0], auxArr[1]);
+    }
+    return resetedMap;
+  };
   const getChkboxStatus = (filterField, filterElement) => checkBoxFiltersStatus.get(filterField)[filterElement];
   const handleChkboxFiltersChange = (filterField, filterElement) => {
     const fieldObject = { ...checkBoxFiltersStatus.get(filterField) };
@@ -53,6 +68,15 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
       setPriceFilters(prevState => ({ ...prevState, [field]: resetedValue}));
     } 
   }
+  const handleFormReset = (event) => {
+    event.preventDefault();
+    setCheckBoxFiltersStatus(prevState => resetMap(prevState));
+    setPriceFilters(({ min: '1', max: '1000' })); //replace the 1000 by the maximum according to the data via props.
+  }
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log('handle the form submit...');
+  }
   const closeContainerAnimation = () => {
     setIsMounted(false);
     setTimeout(() => {
@@ -60,6 +84,7 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
     }, TOGGLE_PORTAL_ANIMATION_TIME + 500);
     // +500 is the slide animation time
   }
+
   return (
     <section
       className={[
@@ -77,64 +102,79 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
         <IoIosCloseCircle />
       </button>
       <h2 className={styles['container__title']}>Filters</h2>
-      <section className={styles['brand-section']}>
-        <h4 className={styles['brand-section__title']}>Brand</h4>
-        <ul className={styles['section__list']}>
+      <form 
+        className={styles['form']}
+        onSubmit={(event) => { handleFormSubmit(event); }}
+      >
+        <fieldset className={styles['form__fieldset']}>
+          <legend className={styles['fieldset__title']}>Brand</legend>
           {brands.map(brand => (
-            <li key={brand}>
-              <Checkbox 
-                name="brand-name"
-                id={`filters-brand-name__${brand}`}
-                label={`${brand.charAt(0).toUpperCase()}${brand.substring(1)}`}
-                handleChange={() => { handleChkboxFiltersChange('brands', brand) }}
-                getCheckedStatus={() => getChkboxStatus('brands', brand)}
-              />
-            </li>
+            <Checkbox 
+              key={brand}
+              name="brand-name"
+              id={`filters-brand-name__${brand}`}
+              label={`${brand.charAt(0).toUpperCase()}${brand.substring(1)}`}
+              handleChange={() => { handleChkboxFiltersChange('brands', brand) }}
+              getCheckedStatus={() => getChkboxStatus('brands', brand)}
+            />
           ))}
-        </ul>
-      </section>
-      <section className={styles['price-section']}>
-        {/* remember to get the actual MAX value from the props accordingly to the data */}
-        <h4 className={styles['price-section__title']}>Price</h4>
-        <InputTextAndNumber 
-          type='number'
-          id='filters-price__min'
-          name='filters-price__min'
-          label='Min:'
-          getValue={() => getPriceValue('min')}
-          min={1}
-          max={1000}
-          handleChange={(event) => { handlePriceChanges(event, 'min') }}
-          handleBlur={() => { handlePriceBlur('min') }}
-        />
-        <InputTextAndNumber 
-          type='number'
-          id='filters-price__max'
-          name='filters-price__max'
-          label='Max:'
-          getValue={() => getPriceValue('max')}
-          min={1}
-          max={1000}
-          handleChange={(event) => { handlePriceChanges(event, 'max') }}
-          handleBlur={() => { handlePriceBlur('max') }}
-        />
-      </section>
-      <section className={styles['category-section']}>
-        <h4 className={styles['category-section__title']}>Category</h4>
-        <ul className={styles['section__list']}>
+        </fieldset>
+        <fieldset className={styles['form__fieldset']}>
+          <legend className={styles['fieldset__title']}>Price</legend>
+          <div className={styles['price-inputs-container']}>
+            <InputTextAndNumber 
+              type='number'
+              id='filters-price__min'
+              name='filters-price__min'
+              label='Min:'
+              getValue={() => getPriceValue('min')}
+              min={1}
+              max={1000}
+              handleChange={(event) => { handlePriceChanges(event, 'min') }}
+              handleBlur={() => { handlePriceBlur('min') }}
+            />
+            <InputTextAndNumber 
+              type='number'
+              id='filters-price__max'
+              name='filters-price__max'
+              label='Max:'
+              getValue={() => getPriceValue('max')}
+              min={1}
+              max={1000}
+              handleChange={(event) => { handlePriceChanges(event, 'max') }}
+              handleBlur={() => { handlePriceBlur('max') }}
+            />
+          </div>
+        </fieldset>
+        <fieldset className={styles['form__fieldset']}>
+          <legend className={styles['fieldset__title']}>Category</legend>
           {categories.map(category => (
-            <li key={category}>
-              <Checkbox 
-                name="category-name"
-                id={`filters-category-name__${category}`}
-                label={`${category.charAt(0).toUpperCase()}${category.substring(1)}`}
-                handleChange={() => { handleChkboxFiltersChange('categories', category) }}
-                getCheckedStatus={() => getChkboxStatus('categories', category)}
-              />
-            </li>
+            <Checkbox 
+              key={category}
+              name="category-name"
+              id={`filters-category-name__${category}`}
+              label={`${category.charAt(0).toUpperCase()}${category.substring(1)}`}
+              handleChange={() => { handleChkboxFiltersChange('categories', category) }}
+              getCheckedStatus={() => getChkboxStatus('categories', category)}
+            />
           ))}
-        </ul>
-      </section>
+        </fieldset>
+        <div className={styles['buttons-container']}>
+          <button 
+            type="reset"
+            onClick={(event) => { handleFormReset(event); }}
+            className={styles['reset-btn']}
+          >
+            Clear
+          </button>
+          <button 
+            type="submit"
+            className={styles['submit-btn']}
+          >
+            Apply
+          </button>
+        </div>
+      </form>
     </section>
   )
 }

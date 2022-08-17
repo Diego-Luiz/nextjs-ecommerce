@@ -1,21 +1,26 @@
 @use 'styles/abstract' as *;
 
 .container {
-    @include displayFlexCentered;
-    justify-content: flex-start; 
-    width: 45%; 
-    box-sizing: border-box;
+    padding: .25em .1em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 .label,
 .input {
     display: inline-block;
 }
 .input { 
+    flex: 1 2;
+    width: 0;
+    min-width: 2ch;
     max-width: 6ch;
-    box-sizing: border-box;
-    margin-left: .4em;
+    padding: {
+        top: .25em;
+        bottom: .25em;
+    }
+    margin-left: .75ch;
     @extend %thin-gray-border;
-    
     &[type=number]::-webkit-outer-spin-button,
     &[type=number]::-webkit-inner-spin-button,
     &[type=number] {
