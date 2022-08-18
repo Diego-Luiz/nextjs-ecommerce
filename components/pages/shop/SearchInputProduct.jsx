@@ -2,7 +2,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 
 import styles from './searchInputProduct.module.scss';
 
-const SearchInputProduct = () => {
+const SearchInputProduct = ({ searchInput, setSearchInput, handleClick }) => {
   return (
     <div className={styles['container']}>
       <label 
@@ -16,10 +16,13 @@ const SearchInputProduct = () => {
         name="product-name" 
         id={styles['product-name']} 
         placeholder='Product name'
+        onChange={(event) => { setSearchInput(event.target.value); }}
+        value={searchInput}
       />
       <button 
         type='button'
         className={styles['search-btn']}
+        onClick={handleClick}
       >
         <AiOutlineSearch />
         <span className='sr-only'>Search</span>

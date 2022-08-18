@@ -8,33 +8,38 @@ import {
   SelectElement,
   Filters
 } from 'components/pages/shop';
-import { Portal } from 'components/ui';
+import { Portal, Product } from 'components/ui';
+import testImg from 'public/images/testimg2.jpg';
 import styles from 'styles/pages/shop.module.scss';
 
 const Shop = () => {
-  const [orderBy, setOrderBy] = useState('');
+  const [sortBy, setSortBy] = useState('');
   const [selectBoxStatus, setSelectBoxStatus] = useState(false);
   const [filterSectionStatus, setFilterSectionStatus] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
   const orderOptionSelected = useRef(null);
-  
+  // const testImg = 'public/images/testimg2.jpg';
   // Active or deactivate the select element
-  const toggleOrderSelect = () => {
+  const toggleSortContainer = () => {
     setSelectBoxStatus(prevState => !prevState);
   };
   // change the actual orderBy value and also set the aria-selected attribute accordingly to the active element in the DOM
-  const setOrderOptionSelected = (element) => {
+  const setSortOptionSelected = (element) => {
     const target = element.target;
     const targetValue = target.getAttribute('value');
-    if(orderBy === targetValue) return;
+    if(sortBy === targetValue) return;
     orderOptionSelected.current?.setAttribute('aria-selected', false);
     target.setAttribute('aria-selected', true);
     orderOptionSelected.current = target;
-    setOrderBy(targetValue);
-    toggleOrderSelect();
+    setSortBy(targetValue);
+    toggleSortContainer();
   };
   const toggleFilterSection = () => {
     setFilterSectionStatus(prevState => !prevState);
   };
+  const handleSearchInputRequest = () => {
+    console.log('here clicking :D');
+  }
   
   return (
     <div 
@@ -51,7 +56,11 @@ const Shop = () => {
         >
           Search
         </h2>
-        <SearchInputProduct />
+        <SearchInputProduct 
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+          handleClick={handleSearchInputRequest}
+        />
         <ActionBtn 
           text='Filters'
           icon={{
@@ -72,13 +81,13 @@ const Shop = () => {
               },
               animationTrigger: selectBoxStatus
             }}
-            handleClick={toggleOrderSelect}
+            handleClick={toggleSortContainer}
             aria-controls='select-sort'
             aria-expanded={selectBoxStatus}
           />
           <SelectElement 
-            handleOptionClick={setOrderOptionSelected}
-            selectValue={orderBy}
+            handleOptionClick={setSortOptionSelected}
+            selectValue={sortBy}
             boxStatus={selectBoxStatus}
             ariaLabelledBy={"text-sort-section"}
           />
@@ -91,29 +100,70 @@ const Shop = () => {
           </Portal>
         )}
       </section>
-      {/* main = container for: filter, products box, sort */}
-      <main>
-        <div>
-          <section className={styles['results-info']}>
+      <main className={styles['main-container']}>
+        <section className={styles['results-info']}>
+          {/* this will only exist if the user made a search */}
+          {searchInput && (
             <h3 className={styles['results-info__received-input']}>
-              Results for: <span>Phone</span>
+              Results for: <span>{searchInput}</span>
             </h3>
-            <p className={styles['results-info__orded-value']}>Orded by: {orderBy}</p>
+          )}
+          <div className={styles['sort-total-container']}>
+            { sortBy && (<p className={styles['results-info__sort-value']}><span>Sort by:</span> {sortBy}</p>) }
             <p className={styles['results-info__total-products']}>
-              <span>501</span>products
+              <span>100000</span> Results
             </p>
-          </section>
-          <section>
-            <h2>Products</h2>
-            <ul>
-              <li>Product</li>
-              <li>Product</li>
-              <li>Product</li>
-              <li>Product</li>
-              <li>Product</li>
-            </ul>
-          </section>
-        </div>
+          </div>
+        </section>
+        <section className={styles['products-container']}>
+          <h2 className='sr-only'>Products</h2>
+          <ul className={styles['products-list']}>
+            <li className={styles['products-list__item']}>
+              <Product 
+                product={{
+                  title: 'OPPOF19',
+                  image: testImg.src,
+                  productDesc: 'OPPO F19 is officially announced on April 2021',
+                  price: '520.00'
+                }}
+                TitleTag='h3'
+              />
+            </li>
+            <li className={styles['products-list__item']}>
+              <Product 
+                product={{
+                  title: 'Title 2',
+                  image: testImg.src,
+                  productDesc: 'OPPO F19 is officially announced on April 2021',
+                  price: '520.00'
+                }}
+                TitleTag='h3'
+              />
+            </li>
+            <li className={styles['products-list__item']}>
+              <Product 
+                product={{
+                  title: 'Title 3',
+                  image: testImg.src,
+                  productDesc: 'OPPO F19 is officially announced on April 2021',
+                  price: '520.00'
+                }}
+                TitleTag='h3'
+              />
+            </li>
+            <li className={styles['products-list__item']}>
+              <Product 
+                product={{
+                  title: 'Title 4',
+                  image: testImg.src,
+                  productDesc: 'OPPO F19 is officially announced on April 2021',
+                  price: '520.00'
+                }}
+                TitleTag='h3'
+              />
+            </li>
+          </ul>
+        </section>
       </main>
     </div>
   );

@@ -7,8 +7,9 @@ $padding-x: 1rem;
     display: flex;
     flex-direction: column;
     color: var(--black-clr);
-    min-width: 266px;
-    max-width: 266px;
+    // min-width: 266px;
+    // max-width: 266px;
+    max-width: 100%;
     background-color: #faf9f9;
 
     & > article {
@@ -16,13 +17,13 @@ $padding-x: 1rem;
     }
 }
 .image-container {
-    position: relative;
-    min-height: 366px;
     background-color: var(--gray-clr);
     .image {
+        display: block;
+        max-width: 100%;
         object: {
+            fit: contain;
             position: center;
-            fit: cover;
         }
     }
 }
@@ -58,7 +59,7 @@ $padding-x: 1rem;
 }
 .title {
     margin-top: .75em;
-    font-weight: 800;
+    font-weight: 600;
     padding: 0 $padding-x;
 }
 .description {

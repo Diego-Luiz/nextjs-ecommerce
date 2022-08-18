@@ -15,20 +15,19 @@ const Product = ({ product, TitleTag, refRelatedTo }, ref) => {
       >
         <article>
           <div className={styles['image-container']}>
-            <Image 
-              src={product.image}
-              alt={product.imageDesc || ''}
+            <img 
+              src={product.image} 
+              alt={product?.imageDesc} 
               className={styles['image']}
-              layout='fill'
-            />    
+            />
           </div>
-          <ul 
+          {/* <ul 
             className={styles['qualities']}
             title='Product qualities'
           >
             <li key="1">High Flexibility</li>
             <li key="2">Original cottom</li>
-          </ul>
+          </ul> */}
           <TitleTag
             className={styles['title']}
           >

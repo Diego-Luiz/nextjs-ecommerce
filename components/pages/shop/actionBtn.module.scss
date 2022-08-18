@@ -2,6 +2,7 @@
 
 .btn {
     @include defaultBtn;
+    border-radius: 10px;
     @include displayFlexCentered; 
     padding: .35em .75em;
 
