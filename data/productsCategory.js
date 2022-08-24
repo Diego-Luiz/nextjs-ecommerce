@@ -8,21 +8,22 @@ const categories = [
   'Home decoration',
   'Furniture',
   'Tops',
-  'Womens dresses',
-  'Womens shoes',
-  'Mens shirts',
-  'Mens shoes',
-  'Mens watches',
-  'Womens watches',
-  'Womens bags',
-  'Womens jewellery',
+  'Women dresses',
+  'Women shoes',
+  'Men shirts',
+  'Men shoes',
+  'Men watches',
+  'Women watches',
+  'Women bags',
+  'Women jewellery',
   'Sunglasses',
   'Automotive',
   'Motorcycle',
   'Lightning'
 ];
-const data = {};
+export const productsCategorySlug = {};
+export const productsSlugCategory = {};
 categories.forEach(category => {
-  data[category] = slugify(category, slugifyOptions);
+  productsCategorySlug[category] = slugify(category, slugifyOptions);
+  productsSlugCategory[slugify(category, slugifyOptions)] = category;
 });
-export default data;

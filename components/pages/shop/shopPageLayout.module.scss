@@ -1,0 +1,41 @@
+@use 'styles/abstract' as *;
+
+.info-section {
+    @include defaultContainer;
+    &__title {
+        font-weight: 400;
+        padding: .5em 0;
+    }
+}
+.filters-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: .75em 0;
+    border-top: solid 1px var(--light-gray-clr);
+
+    > [class*='btn']:last-of-type {
+        margin-left: .25em;
+    }
+    .results-quantity {
+        margin: 0;
+        margin-right: auto;
+    }
+}
+.main-container {
+    position: relative;
+}
+.products-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 9px;
+    max-width: 100%;
+    list-style: none;
+    box-sizing: border-box;
+
+    &__item {
+        width: 47%;
+        margin: 0 1.5%;
+    }
+}

@@ -1,15 +1,34 @@
-import { useEffect } from 'react';
-import { useRouter } from "next/router";
+import { productsSlugCategory } from 'data/productsCategory';
 
-const ProductsByCategory = () => {
-  const router = useRouter();
-  useEffect(() => {
-    console.log('router: ', router);
-  });
+import { ShopPageLayout } from "components/pages/shop";
 
+const ProductsByCategory = ({ category }) => {
+  console.log(category);
   return (
-    <div>Testing category</div>
+    <ShopPageLayout 
+      infoSectionTitle={category}
+      resultsQuantity={60}
+    />
   );
+}
+export async function getStaticPaths() {
+  const productsSlug = Object.keys(productsSlugCategory);
+  const paths = productsSlug.map(element => (
+    { params: { category: element } }
+  ));
+  return ({
+    paths,
+    fallback: false
+  });
+}
+export async function getStaticProps(context) {
+  let { params:{ category } } = context;
+  category = productsSlugCategory[category];
+  return ({
+    props: {
+      category
+    }
+  });
 }
 
 export default ProductsByCategory;

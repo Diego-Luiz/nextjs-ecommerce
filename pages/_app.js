@@ -1,6 +1,6 @@
 import 'styles/main.scss';
 import { Layout as defaultLayout } from 'components/ui';
-import productsCategory from 'data/productsCategory';
+import { productsCategorySlug } from 'data/productsCategory';
 function MyApp({ Component, pageProps, productsCategory }) {
   const Layout = Component.getLayout || defaultLayout;
   return (
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps, productsCategory }) {
 
 MyApp.getInitialProps = async () => {
   return ({
-    productsCategory
+    productsCategory: productsCategorySlug
   });
 };
 
