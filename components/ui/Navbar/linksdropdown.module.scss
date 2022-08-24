@@ -1,0 +1,21 @@
+.container {
+    list-style: none;
+    padding-left: .5em;
+    max-height: 0px;
+    overflow: hidden;
+    font-size: calc(var(--fz-nav-list-items) - .15rem);
+    transition: max-height .25s ease-in-out;
+    
+    &.--active {
+        max-height: 100vh;
+        overflow: auto;
+    }
+
+    .item {
+        * {
+            color: currentColor;
+            text-decoration: none;
+        }
+        padding: .35em 0;
+    }
+}

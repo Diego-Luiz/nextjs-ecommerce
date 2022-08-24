@@ -12,6 +12,7 @@ import { Portal, Product } from 'components/ui';
 import testImg from 'public/images/testimg2.jpg';
 import styles from 'styles/pages/shop.module.scss';
 
+
 const Shop = () => {
   const [sortBy, setSortBy] = useState('');
   const [selectBoxStatus, setSelectBoxStatus] = useState(false);
@@ -168,5 +169,13 @@ const Shop = () => {
     </div>
   );
 }
+
+// export async function getStaticProps() {
+//   return ({
+//     props: {
+
+//     }
+//   });
+// }
 
 export default Shop;

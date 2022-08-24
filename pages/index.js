@@ -138,7 +138,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
               <Product 
                 product={{
                   title: 'Title product test',
-                  image: testImg,
+                  image: testImg.src,
                   productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
                   price: '520.00'
                 }}
@@ -154,7 +154,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
               <Product 
                 product={{
                   title: '2 Title product test',
-                  image: testImg,
+                  image: testImg.src,
                   productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
                   price: '520.00'
                 }}
@@ -168,7 +168,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
               <Product 
                 product={{
                   title: 'Title product test 3',
-                  image: testImg,
+                  image: testImg.src,
                   productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
                   price: '520.00'
                 }}
@@ -182,7 +182,7 @@ const Home = ({ dataCarousel, aboutProducts }) => {
               <Product 
                 product={{
                   title: 'Title product test 4',
-                  image: testImg,
+                  image: testImg.src,
                   productDesc: 'This product is the best in terms of cottom quality and also has an elegant design',
                   price: '520.00'
                 }}

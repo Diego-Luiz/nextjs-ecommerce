@@ -3,25 +3,28 @@ import { BiUser } from 'react-icons/bi';
 
 import { 
   useState,
-  useEffect
+  useEffect,
+  useRef
 } from 'react';
+import { RiArrowDownSLine } from 'react-icons/ri';
 
 import Cart from '../Cart';
 import BurguerMenu from '../BurguerMenu';
 import Logo from '../Logo';
+import LinksDropdown from './LinksDropdown';
 import styles from './navbar.module.scss';
 
-const Navbar = () => {
+const Navbar = ({ productsCategory }) => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-  
-  useEffect(() => {
-    if(isMenuOpened) setIsMenuOpened(false);
-  }, []);
+  const [isDropdownOpened, setIsDropdownOpened] = useState(false);
+  const pCategories = useRef(Object.keys(productsCategory));
 
   const handleUserClick = () => {
     console.log('handling click');
   };
-  
+  const toggleDropdown = () => {
+    setIsDropdownOpened(prevState => !prevState);
+  };
   return (
     <nav className={styles['nav']}>
       <div className={styles['menu-container']}>
@@ -35,14 +38,48 @@ const Navbar = () => {
             `${isMenuOpened ? styles['--active']: ''}`
           ].join(' ')}
         >
-          <li>
-            <Link href='/shop'>
-              <a className={styles['links-list__link']}>Shop</a>
-            </Link>
+          <li
+            className={styles['links-list__li']}
+          >
+            <button
+              type='button'
+              className={[
+                styles['links-list__item'],
+                styles['btn-dropdown']
+              ].join(' ')}
+              aria-controls='shop-dropdownMenu'
+              aria-expanded={isDropdownOpened}
+              onClick={toggleDropdown}
+            >
+              Shop
+              <span 
+                className={[
+                  styles['icon'],
+                  `${isDropdownOpened ? styles['--active']: ''}`
+                ].join(' ')}>
+                <RiArrowDownSLine />
+              </span>
+            </button>
+            <LinksDropdown 
+              previousSection='All'
+              id='shop-dropdownMenu'
+              opened={isDropdownOpened}
+            >
+              {pCategories.current.map((category, index) => (
+                <Link 
+                  href={`/shop/category/${productsCategory[category]}`}
+                  key={index}
+                >
+                  <a>{category}</a>
+                </Link>
+              ))}
+            </LinksDropdown>
           </li>
-          <li>
+          <li
+            className={styles['links-list__li']}
+          >
             <Link href='/about'>
-              <a className={styles['links-list__link']}>About NextECom</a>
+              <a className={styles['links-list__item']}>About NextECom</a>
             </Link>
           </li>
         </ul>
@@ -63,6 +100,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

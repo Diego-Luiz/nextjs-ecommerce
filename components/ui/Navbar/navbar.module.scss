@@ -14,31 +14,45 @@
     position: absolute;
     top: calc(100% + 1px);
     left: 0;
-    z-index: 1;
+    z-index: 6;
     width: 100%;
-    max-height: 0px;
+    height: 0px;
     overflow: hidden;
     box-sizing: border-box;
     background: var(--gray-clr);
     list-style: none;
     font-size: var(--fz-nav-list-items);
     transition: all .5s ease-in-out;
-    
-    & li:first-child &__link{
-        padding-top: 1em;
-    }
-    & li:last-child &__link{
-        padding-bottom: 1em;
-    }
-    &__link {
-        @include defaultLink;
+
+    &__li {
         padding: .25em 1em;
+        &:first-child {
+            padding-top: .5em;
+        }
+    }
+    &__item {
         color: var(--black-clr);
         font-weight: 600;
     }
     &.--active{
         overflow: auto;
-        max-height: 100vh;
+        height: 100vh;
+    }
+}
+.btn-dropdown {
+    display: flex;
+    align-items: center;
+    border: none;
+    background: inherit;
+    padding: 0;
+
+    .icon {
+        display: flex;
+        margin-left: .1asdASDAASDFGH5em;
+        transition: .2s;
+        &.--active {
+            transform: rotate(180deg);
+        }
     }
 }
 .user-section {
