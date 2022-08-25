@@ -1,7 +1,7 @@
 @use 'styles/abstract' as *;
 
 .info-section {
-    @include defaultContainer;
+    @extend %default-container;
     &__title {
         font-weight: 400;
         padding: .5em 0;

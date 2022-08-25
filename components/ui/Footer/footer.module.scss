@@ -1,7 +1,7 @@
 @use 'styles/abstract' as *;
 
 .container {
-    @include defaultContainer;
+    @extend %default-container;
     background-color: var(--black-clr);
     color: var(--white-clr);
     

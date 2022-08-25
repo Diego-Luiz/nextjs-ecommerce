@@ -3,7 +3,7 @@
 .products-category-section,
 .featured-sections,
 .popular-products {
-    @include defaultContainer;
+    @extend %default-container;
 }
 .featured-sections {
     [class*='container']:nth-child(2) {
