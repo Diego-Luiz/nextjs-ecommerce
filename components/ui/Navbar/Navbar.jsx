@@ -61,7 +61,6 @@ const Navbar = ({ productsCategory }) => {
               </span>
             </button>
             <LinksDropdown 
-              previousSection='All'
               id='shop-dropdownMenu'
               opened={isDropdownOpened}
             >

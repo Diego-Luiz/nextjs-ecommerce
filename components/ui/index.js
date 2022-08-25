@@ -10,6 +10,7 @@ import ImpactCard from "./ImpactCard";
 import Product from "./Product";
 import Checkbox from "./Checkbox";
 import InputTextAndNumber from "./InputTextAndNumber";
+import SearchInput from "./SearchInput";
 
 export {
   Header,
@@ -23,5 +24,6 @@ export {
   Product,
   Footer,
   Checkbox,
-  InputTextAndNumber
+  InputTextAndNumber,
+  SearchInput
 };

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import styles from './linksdropdown.module.scss';
 
-const LinksDropdown = ({ previousSection, children, opened, ...otherAttributes }) => {
+const LinksDropdown = ({ children, opened, ...otherAttributes }) => {
   return (
     <ul 
       className={[

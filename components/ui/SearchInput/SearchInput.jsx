@@ -1,8 +1,8 @@
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import styles from './searchInputProduct.module.scss';
+import styles from './searchInput.module.scss';
 
-const SearchInputProduct = ({ searchInput, setSearchInput, handleClick }) => {
+const SearchInput = ({ searchInput, setSearchInput, handleClick }) => {
   return (
     <div className={styles['container']}>
       <label 
@@ -31,4 +31,4 @@ const SearchInputProduct = ({ searchInput, setSearchInput, handleClick }) => {
   )
 }
 
-export default SearchInputProduct;
+export default SearchInput;
