@@ -18,7 +18,7 @@ const Portal= ({ children }) => {
       rootPortalRef.current.style = 'z-index: -2';
       rootPortalRef.current = null;
     }
-  }, [])
+  }, []);
 
   return mounted
     ? createPortal(children, rootPortalRef.current)

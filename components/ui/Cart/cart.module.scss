@@ -4,5 +4,5 @@
     @include containerWithAbsItem($display: flex);
     padding: 0 .05em;
     color: var(--black-clr);
-    font-size: var(--fz-nav-btn);
+    font-size: inherit;
 }

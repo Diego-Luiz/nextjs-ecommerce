@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { BiUser } from 'react-icons/bi';
 
 import { 
   useState,
@@ -10,23 +9,48 @@ import { RiArrowDownSLine } from 'react-icons/ri';
 
 import Cart from '../Cart';
 import BurguerMenu from '../BurguerMenu';
-import Logo from '../Logo';
 import LinksDropdown from './LinksDropdown';
+import SearchInput from '../SearchInput';
+import { Portal } from '..';
 import styles from './navbar.module.scss';
 
 const Navbar = ({ productsCategory }) => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const pCategories = useRef(Object.keys(productsCategory));
 
-  const handleUserClick = () => {
-    console.log('handling click');
-  };
   const toggleDropdown = () => {
     setIsDropdownOpened(prevState => !prevState);
   };
+  
   return (
     <nav className={styles['nav']}>
+      {/* {isSearchExpanded 
+        ? (
+          <Portal>
+            <SearchInput 
+              isExpanded={isSearchExpanded}
+              setIsExpanded={setIsSearchExpanded}              
+            />        
+          </Portal>
+        )
+        : (
+          <SearchInput 
+            isExpanded={isSearchExpanded}
+            setIsExpanded={setIsSearchExpanded}
+          />
+        )
+      } */}
+      <SearchInput 
+        isExpanded={isSearchExpanded}
+        setIsExpanded={setIsSearchExpanded}
+      />
+      <div className={styles['user-container']}>
+        <Link href='/cart' passHref>
+          <Cart />
+        </Link>
+      </div>
       <div className={styles['menu-container']}>
         <BurguerMenu
           isMenuOpened={isMenuOpened}
@@ -82,20 +106,6 @@ const Navbar = ({ productsCategory }) => {
             </Link>
           </li>
         </ul>
-      </div>
-      <Logo TitleLevel={'h1'}/>
-      <div className={styles['user-container']}>
-        <button
-          type='button'
-          onClick={handleUserClick}
-          className={styles['user-section']}
-        >
-          <span className='sr-only'>Toggle user login</span>
-          <BiUser />
-        </button>
-        <Link href='/cart' passHref>
-          <Cart />
-        </Link>
       </div>
     </nav>
   );

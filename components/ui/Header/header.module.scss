@@ -1,0 +1,10 @@
+@use 'styles/abstract' as *;
+
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    @extend %default-container;
+    box-shadow: 0px -10px 15px 1px #000000;
+    z-index: 2;
+}

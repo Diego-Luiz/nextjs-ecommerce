@@ -1,0 +1,19 @@
+.container {
+    margin-top: 1.25em;
+}
+.title {
+    color: var(--light-black-clr);
+    font-weight: 400; 
+}
+.list {
+    list-style: none;
+    padding: .5em .1em;
+
+    &__suggestion {
+        padding: .5em 0;
+        font-size: 1.1rem;
+    }
+    .link {
+        color: currentColor;
+    }
+}

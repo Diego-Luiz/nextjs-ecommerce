@@ -1,5 +1,5 @@
 @use 'styles/abstract/variables' as *;
-
+.container { position: relative; }
 .container,
 .logo {
     display: inline-block;

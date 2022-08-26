@@ -9,10 +9,11 @@ $scale: 1.2;
 $color: var(--light-black-clr);
 
 .btn {
-    @include containerWithAbsItem;
+    position: relative;
     padding: .15em .15em;
     background: none;
     border: none;
+    cursor: pointer;
 }
 .bars-container {
     display: flex;

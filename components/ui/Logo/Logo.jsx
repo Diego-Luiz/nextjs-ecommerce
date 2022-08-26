@@ -8,10 +8,11 @@ const Logo = ({ TitleLevel }) => {
     <Link href='/'>
       <a className={styles['container']}>
         <TitleLevel
-          className={styles['logo']}
+          className={`${styles['logo']} sr-only`}
         >
           { ECOMMERCE_NAME }
         </TitleLevel>
+        NEC
       </a>
     </Link>
   );

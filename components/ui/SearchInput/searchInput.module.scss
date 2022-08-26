@@ -1,35 +1,82 @@
 @use 'styles/abstract' as *;
 
-.container { 
+$transition-time: .5s;
+
+.container {
     position: relative;
+    flex-grow: 1;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: $transition-time;
+    &.--expanded {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        height: 100vh;
+        width: 100%;
+        padding: 1em .5em;
+        display: grid;
+        grid-template-columns: 1fr max-content;
+        grid-auto-rows: max-content;
+        column-gap: .5em;
+        background-color: var(--white-clr);
+        .box {
+            transform: translateX(0%);
+            padding: .1em .75em .1em .25em;
+            background-color: var(--light-gray-clr);
+        }
+        .search-input {
+            padding: .25em 0;
+        }
+        .btn-search {
+            padding: .25em;
+        }
+        .close-btn {
+            display: inline-flex;
+            align-items: center;
+            @extend %reset-btn-style;
+            padding: .5em;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            background-color: var(--light-gray-clr);
+        }
+    }
+}
+.box {
     display: flex;
     align-items: center;
-    column-gap: .25em;
-    width: 100%;
-    padding: .25em 1em .25em .25em;
-    border: solid 1px rgba(0, 0, 0, .2);
-    border-radius: 5px;
+    column-gap: .25ch;
+    transform: translateX(86%);
+    border-radius: 25px;
+    transition: $transition-time;
     box-sizing: border-box;
-    overflow: hidden;
 }
-#product-name { 
-    order: 2; 
-    flex-grow: 1;
-    padding: .35em 0;
-    border: none;
-}
-.search-btn {
+.btn-search {
     order: 1;
+    position: relative;
     @include displayFlexCentered;
-    padding: .35em;
-    height: 100%;
-    border: none;
+    border: solid 1px transparent;
     border-radius: 50%;
     background-color: transparent;
     color: var(--black-clr);
-    font-size: 1.25rem;
+    font-size: inherit;
     svg {
         stroke-width: 40px;
     }
     box-sizing: border-box;
+    cursor: pointer;
+}
+.search-input {
+    order: 2;
+    @extend %reset-btn-style;
+    width: 100%;
+    height: max-content;
+    border-bottom: solid 1px transparent;
+    font-size: 1rem;
+    text-indent: .5ch;
+    box-sizing: border-box;
+}
+.close-btn {
+    display: none;
+    cursor: pointer;
 }
