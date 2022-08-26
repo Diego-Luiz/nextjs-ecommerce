@@ -46,7 +46,7 @@ $transition-time: .5s;
     display: flex;
     align-items: center;
     column-gap: .25ch;
-    transform: translateX(86%);
+    transform: translateX(calc(100% - var(--searchBtnWidth)));
     border-radius: 25px;
     transition: $transition-time;
     box-sizing: border-box;

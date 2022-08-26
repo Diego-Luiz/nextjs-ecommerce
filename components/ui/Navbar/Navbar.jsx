@@ -1,5 +1,5 @@
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
 import { 
   useState,
   useEffect,
@@ -15,36 +15,38 @@ import { Portal } from '..';
 import styles from './navbar.module.scss';
 
 const Navbar = ({ productsCategory }) => {
+  const router = useRouter();
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [inputSearchValue, setInputSearchValue] = useState('');
   const pCategories = useRef(Object.keys(productsCategory));
 
   const toggleDropdown = () => {
     setIsDropdownOpened(prevState => !prevState);
   };
-  
+  const toggleSearchContainer = (element, value) => {
+    if (value) setIsSearchExpanded(value);
+    else setIsSearchExpanded(prevState => !prevState);
+  };
+  const handleSearchBtnClick = () => {
+    if(!isSearchExpanded){
+      toggleSearchContainer(true);
+      return;
+    } 
+    if(inputSearchValue.length) {
+      router.push(`/shop?q=${inputSearchValue}`);
+    }
+  };
   return (
     <nav className={styles['nav']}>
-      {/* {isSearchExpanded 
-        ? (
-          <Portal>
-            <SearchInput 
-              isExpanded={isSearchExpanded}
-              setIsExpanded={setIsSearchExpanded}              
-            />        
-          </Portal>
-        )
-        : (
-          <SearchInput 
-            isExpanded={isSearchExpanded}
-            setIsExpanded={setIsSearchExpanded}
-          />
-        )
-      } */}
       <SearchInput 
+        searchInput={inputSearchValue}
+        setSearchInput={setInputSearchValue}
         isExpanded={isSearchExpanded}
         setIsExpanded={setIsSearchExpanded}
+        handleBtnClick={handleSearchBtnClick}
+        toggleContainer={toggleSearchContainer}
       />
       <div className={styles['user-container']}>
         <Link href='/cart' passHref>

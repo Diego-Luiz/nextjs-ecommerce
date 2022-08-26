@@ -1,5 +1,5 @@
 import {
-  useState,
+  useLayoutEffect,
   useEffect,
   useRef
 } from 'react';
@@ -9,27 +9,34 @@ import { GrFormClose } from 'react-icons/gr';
 import SuggestionList from './SuggestionList';
 import styles from './searchInput.module.scss';
 
-const SearchInput = ({ searchInput, setSearchInput, isExpanded, setIsExpanded }) => {
+const SearchInput = ({ searchInput, setSearchInput, isExpanded, setIsExpanded, handleBtnClick, toggleContainer }) => {
   const inputRef = useRef(null);
-
+  const boxRef = useRef(null);
+  const btnSearchRef = useRef(null);
+  
+  useLayoutEffect(() => {
+    if(!boxRef.current || !btnSearchRef.current) return;
+    const btnSearchWidth = btnSearchRef.current.offsetWidth;
+    boxRef.current.style = `--searchBtnWidth: ${btnSearchWidth}px`;
+  }, []);
+  
   useEffect(() => {
-    if(isExpanded) inputRef.current.focus();
+    if(isExpanded) { 
+      setTimeout(() => {
+        inputRef.current.focus();
+      }, 1000);
+    }
   }, [isExpanded]);
 
-  const toggleInputContainer = (element, value) => {
-    if (value) setIsExpanded(value);
-    else setIsExpanded(prevState => !prevState);
-  };
-  const handleBtnClick = () => {
-    toggleInputContainer(true);
-  };
-  
   return (
     <div className={[
       styles['container'],
       `${isExpanded ? styles['--expanded'] : ''}`
     ].join(' ')}>
-      <div className={styles['box']}>
+      <div 
+        className={styles['box']}
+        ref={boxRef}
+      >
         <label className='sr-only' htmlFor='search-product-input'>Search product</label>
         <input 
           type="text" 
@@ -39,20 +46,28 @@ const SearchInput = ({ searchInput, setSearchInput, isExpanded, setIsExpanded })
           className={styles['search-input']}
           ref={inputRef}
           aria-hidden={!isExpanded}
+          minLength='1'
+          value={searchInput}
+          onChange={(element) => { setSearchInput(element.target.value); }}
         />
         <button
           type='button'
           className={styles['btn-search']}
-          onClick={toggleInputContainer}
+          onClick={handleBtnClick}
+          ref={btnSearchRef}
         >
-          <span className='sr-only'>Search product</span>
+          {isExpanded 
+            ? (<span className='sr-only'>Search product</span>)
+            : (<span className='sr-only'>Open search section</span>)
+          }
+          
           <AiOutlineSearch />
         </button>
       </div>
       <button
         type='button'
         className={styles['close-btn']}
-        onClick={toggleInputContainer}
+        onClick={toggleContainer}
       >
         <span className='sr-only'>Close search section</span>
         <GrFormClose />
