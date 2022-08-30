@@ -96,50 +96,23 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, filters }
       <main className={styles['main-container']}>
         <h3 className='sr-only'>Products</h3>
         <ul className={styles['products-list']}>
-          <li className={styles['products-list__item']}>
-            <Product 
-              product={{
-                title: 'OPPOF19',
-                image: testImg.src,
-                productDesc: 'OPPO F19 is officially announced on April 2021',
-                price: '520.00'
-              }}
-              TitleTag='h3'
-            />
-          </li>
-          <li className={styles['products-list__item']}>
-            <Product 
-              product={{
-                title: 'Title 2',
-                image: testImg.src,
-                productDesc: 'OPPO F19 is officially announced on April 2021',
-                price: '520.00'
-              }}
-              TitleTag='h3'
-            />
-          </li>
-          <li className={styles['products-list__item']}>
-            <Product 
-              product={{
-                title: 'Title 3',
-                image: testImg.src,
-                productDesc: 'OPPO F19 is officially announced on April 2021',
-                price: '520.00'
-              }}
-              TitleTag='h3'
-            />
-          </li>
-          <li className={styles['products-list__item']}>
-            <Product 
-              product={{
-                title: 'Title 4',
-                image: testImg.src,
-                productDesc: 'OPPO F19 is officially announced on April 2021',
-                price: '520.00'
-              }}
-              TitleTag='h3'
-            />
-          </li>
+          {products.map(product => (
+            <li
+              key={product.id} 
+              className={styles['products-list__item']}
+            >
+              <Product 
+                product={{
+                  id: product.id,
+                  title: product.title,
+                  image: product.thumbnail,
+                  productDesc: product.description,
+                  price: product.price
+                }}
+                TitleTag='h3'
+              />
+            </li>
+          ))}
         </ul>
       </main>
     </div>

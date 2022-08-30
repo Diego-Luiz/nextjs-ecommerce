@@ -11,7 +11,6 @@ import Cart from '../Cart';
 import BurguerMenu from '../BurguerMenu';
 import LinksDropdown from './LinksDropdown';
 import SearchInput from '../SearchInput';
-import { Portal } from '..';
 import styles from './navbar.module.scss';
 
 const Navbar = ({ productsCategory }) => {
