@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import React from 'react';
 
 import styles from './product.module.scss';
@@ -21,28 +20,24 @@ const Product = ({ product, TitleTag, refRelatedTo }, ref) => {
               className={styles['image']}
             />
           </div>
-          {/* <ul 
-            className={styles['qualities']}
-            title='Product qualities'
-          >
-            <li key="1">High Flexibility</li>
-            <li key="2">Original cottom</li>
-          </ul> */}
-          <TitleTag
-            className={styles['title']}
-          >
-            {product.title}
-          </TitleTag>
-          <p
-            className={styles['description']}
-          >
-            {product.productDesc}
-          </p>
-          <p
-            className={styles['price']}
-          >
-            ${product.price}
-          </p>
+          <div className={styles['content-container']}>
+            <TitleTag
+              className={styles['title']}
+            >
+              {product.title}
+            </TitleTag>
+            <p
+              className={styles['category']}
+            >
+              <span className="sr-only">Category:</span>
+              {product.category}
+            </p>
+            <p
+              className={styles['price']}
+            >
+              ${product.price}
+            </p>
+          </div>
         </article>
       </a>
     </Link>

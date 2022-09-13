@@ -8,7 +8,6 @@ import {
   Filters
 } from 'components/pages/shop';
 import { Portal, Product } from 'components/ui';
-import testImg from 'public/images/testimg2.jpg';
 import styles from './shopPageLayout.module.scss';
 
 
@@ -105,7 +104,8 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, filters }
                 product={{
                   id: product.id,
                   title: product.title,
-                  image: product.thumbnail,
+                  image: product.images[0],
+                  category: product.category,
                   productDesc: product.description,
                   price: product.price
                 }}

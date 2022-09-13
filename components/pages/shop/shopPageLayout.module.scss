@@ -30,6 +30,7 @@
     flex-wrap: wrap;
     justify-content: center;
     row-gap: 9px;
+    padding: .5em 0;
     max-width: 100%;
     list-style: none;
     box-sizing: border-box;
@@ -37,5 +38,8 @@
     &__item {
         width: 47%;
         margin: 0 1.5%;
+        min-height: 300px;
+        max-height: 345px;
+        box-sizing: border-box;
     }
 }

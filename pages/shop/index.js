@@ -17,7 +17,7 @@ export async function getServerSideProps({ res, query }) {
     'Cache-Control',
     'public, s-maxage=10, state-while-revalidate=120'
   );
-  const response = await fetch(`${BASE_PRODUCTS_API_URL}/search?q=${query.q}`);
+  const response = await fetch(`${BASE_PRODUCTS_API_URL}/search?q=${query.q}&limit=100`);
   const data = await response.json();
   return ({
     props: {
