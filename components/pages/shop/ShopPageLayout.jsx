@@ -1,4 +1,8 @@
-import { useState, useRef } from 'react';
+import { 
+  useState, 
+  useEffect,
+  useRef 
+} from 'react';
 import { AiOutlineFilter } from 'react-icons/ai';
 import { RiArrowDownSLine } from 'react-icons/ri';
 
@@ -13,29 +17,32 @@ import styles from './shopPageLayout.module.scss';
 
 const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, filters }) => {
   const [sortBy, setSortBy] = useState('');
-  const [selectBoxStatus, setSelectBoxStatus] = useState(false);
+  const [sortBoxStatus, setSortBoxStatus] = useState(false);
   const [filterSectionStatus, setFilterSectionStatus] = useState(false);
-  const orderOptionSelected = useRef(null);
-  
+  const sortOptionSelected = useRef(null);
+  let productsToDisplay = 
+    sortBy.length 
+    ? [products[0]]
+    : products;
+
   // Active or deactivate the select element
   const toggleSortContainer = () => {
-    setSelectBoxStatus(prevState => !prevState);
+    setSortBoxStatus(prevState => !prevState);
   };
   // change the actual orderBy value and also set the aria-selected attribute accordingly to the active element in the DOM
   const setSortOptionSelected = (element) => {
     const target = element.target;
     const targetValue = target.getAttribute('value');
     if(sortBy === targetValue) return;
-    orderOptionSelected.current?.setAttribute('aria-selected', false);
+    sortOptionSelected.current?.setAttribute('aria-selected', false);
     target.setAttribute('aria-selected', true);
-    orderOptionSelected.current = target;
+    sortOptionSelected.current = target;
     setSortBy(targetValue);
     toggleSortContainer();
   };
   const toggleFilterSection = () => {
     setFilterSectionStatus(prevState => !prevState);
   };
-  
   return (
     <div 
       className={styles['container']}
@@ -71,16 +78,16 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, filters }
               animationStyle: {
                 transform: 'rotate(180deg)'
               },
-              animationTrigger: selectBoxStatus
+              animationTrigger: sortBoxStatus
             }}
             handleClick={toggleSortContainer}
             aria-controls='select-sort'
-            aria-expanded={selectBoxStatus}
+            aria-expanded={sortBoxStatus}
           />
           <SelectElement 
             handleOptionClick={setSortOptionSelected}
             selectValue={sortBy}
-            boxStatus={selectBoxStatus}
+            boxStatus={sortBoxStatus}
             ariaLabelledBy={"text-sort-section"}
           />
           {filterSectionStatus && (
@@ -95,24 +102,26 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, filters }
       <main className={styles['main-container']}>
         <h3 className='sr-only'>Products</h3>
         <ul className={styles['products-list']}>
-          {products.map(product => (
-            <li
-              key={product.id} 
-              className={styles['products-list__item']}
-            >
-              <Product 
-                product={{
+          {productsToDisplay.map(product => (
+              <li
+                key={product.id} 
+                className={styles['products-list__item']}
+              >
+                <Product 
+                  product={{
                   id: product.id,
                   title: product.title,
                   image: product.images[0],
                   category: product.category,
                   productDesc: product.description,
                   price: product.price
-                }}
-                TitleTag='h3'
-              />
-            </li>
-          ))}
+                  }}
+                  TitleTag='h3'
+                />
+              </li>
+            ))
+          }
+          
         </ul>
       </main>
     </div>
