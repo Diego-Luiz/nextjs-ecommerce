@@ -15,10 +15,19 @@ import { Portal, Product } from 'components/ui';
 import styles from './shopPageLayout.module.scss';
 
 
-const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, filters }) => {
+const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, maxPrice }) => {
   const [sortBy, setSortBy] = useState('');
   const [sortBoxStatus, setSortBoxStatus] = useState(false);
   const [filterSectionStatus, setFilterSectionStatus] = useState(false);
+  const getChkBoxesFilters = () => {
+    const tempObj = {};
+    brands.forEach(brand => {
+      tempObj[brand] = false;
+    });
+    return tempObj;
+  };
+  const [chkBoxesFilters, setChkBoxesFilters] = useState(getChkBoxesFilters());
+  const [priceFilters, setPriceFilters] = useState({ min: '1', max: maxPrice });
   const sortOptionSelected = useRef(null);
   let productsToDisplay = 
     sortBy.length 
@@ -43,6 +52,7 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, filters }
   const toggleFilterSection = () => {
     setFilterSectionStatus(prevState => !prevState);
   };
+  
   return (
     <div 
       className={styles['container']}
@@ -94,6 +104,11 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, filters }
             <Portal>
               <Filters 
                 toggleFilterSection={toggleFilterSection}
+                chkBoxesFilters={chkBoxesFilters} 
+                setChkBoxesFilters={setChkBoxesFilters}
+                priceFilters={priceFilters}
+                setPriceFilters={setPriceFilters}
+                maxPrice={maxPrice}
               />
             </Portal>
           )}

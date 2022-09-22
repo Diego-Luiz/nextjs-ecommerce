@@ -11,20 +11,10 @@ import {
 import { TOGGLE_PORTAL_ANIMATION_TIME } from 'utils/constants';
 import styles from './filters.module.scss';
 
-const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1', 'category2'], toggleFilterSection }) => {
-  const [checkBoxFiltersStatus, setCheckBoxFiltersStatus] = useState(() => {
-    const brandsObj = {};
-    const categoriesObj = {};
-    brands.forEach(brand => { brandsObj[brand] = false; });
-    categories.forEach(category => { categoriesObj[category] = false; });
-    return new Map([
-      ['brands', brandsObj], 
-      ['categories', categoriesObj]
-    ]);
-  });
-  const [priceFilters, setPriceFilters] = useState({ min: '1', max: '1000' });
+const Filters = ({ toggleFilterSection, chkBoxesFilters, setChkBoxesFilters, priceFilters, setPriceFilters, maxPrice }) => {
   const [isMounted, setIsMounted] = useState(false);
-  
+  const chkBoxesEntries = Object.entries(chkBoxesFilters);
+
   useEffect(() => {
     setTimeout(() => {
       setIsMounted(true);
@@ -32,25 +22,9 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
     return () => setIsMounted(false);
   }, []);
 
-  const resetMap = mapElement => {
-    const resetedMap = new Map();
-    for(let [key, value] of mapElement) {
-      let auxArr = ['', null];
-      auxArr[0] = key;
-      auxArr[1] = {...value};
-      for(let indexInValue in auxArr[1]){
-        auxArr[1][indexInValue] = false;
-      }
-      resetedMap.set(auxArr[0], auxArr[1]);
-    }
-    return resetedMap;
-  };
-  const getChkboxStatus = (filterField, filterElement) => checkBoxFiltersStatus.get(filterField)[filterElement];
-  const handleChkboxFiltersChange = (filterField, filterElement) => {
-    const fieldObject = { ...checkBoxFiltersStatus.get(filterField) };
-    fieldObject[filterElement] = !fieldObject[filterElement];
-    setCheckBoxFiltersStatus(prevState => new Map([...prevState, [filterField, fieldObject]]));
-  };
+  const handleChkBoxStatusChange = brand => {
+    setChkBoxesFilters(prevState => ({ ...prevState, [brand]: !prevState[brand] }));
+  }
   const getPriceValue = field => priceFilters[field];
   const handlePriceChanges = (event, field) => {
     let elementValue = event.target.value;
@@ -59,19 +33,17 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
   const handlePriceBlur = (field) => {
     const elementValue = getPriceValue(field);
     const validateExp = /^([1-9])+|^\1+.\1+$/;
-    // elementValue <= 1000 change by the maximum value
-    if(!(validateExp.test(elementValue) && elementValue <= 1000)){
+    if(!(validateExp.test(elementValue) && elementValue <= maxPrice)){
       //throw an error
       alert('The value in price in invalid');
-      const resetedValue = field === 'min' ? '1' : '1000';
+      const resetedValue = field === 'min' ? '1' : maxPrice;
       console.log('resetedValue: ', resetedValue);
-      setPriceFilters(prevState => ({ ...prevState, [field]: resetedValue}));
+      setPriceFilters(prevState => ({ ...prevState, [field]: resetedValue }));
     } 
   }
   const handleFormReset = (event) => {
     event.preventDefault();
-    setCheckBoxFiltersStatus(prevState => resetMap(prevState));
-    setPriceFilters(({ min: '1', max: '1000' })); //replace the 1000 by the maximum according to the data via props.
+    setPriceFilters(({ min: '1', max: maxPrice }));
   }
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -107,15 +79,15 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
         onSubmit={(event) => { handleFormSubmit(event); }}
       >
         <fieldset className={styles['form__fieldset']}>
-          <legend className={styles['fieldset__title']}>Brand</legend>
-          {brands.map(brand => (
+          <legend className={styles['fieldset__title']}>Brands</legend>
+          {chkBoxesEntries.map(([brand, value]) => (
             <Checkbox 
               key={brand}
               name="brand-name"
               id={`filters-brand-name__${brand}`}
               label={`${brand.charAt(0).toUpperCase()}${brand.substring(1)}`}
-              handleChange={() => { handleChkboxFiltersChange('brands', brand) }}
-              getCheckedStatus={() => getChkboxStatus('brands', brand)}
+              handleChange={() => { handleChkBoxStatusChange(brand) }}
+              getCheckedStatus={() => value}
             />
           ))}
         </fieldset>
@@ -129,7 +101,7 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
               label='Min:'
               getValue={() => getPriceValue('min')}
               min={1}
-              max={1000}
+              max={maxPrice}
               handleChange={(event) => { handlePriceChanges(event, 'min') }}
               handleBlur={() => { handlePriceBlur('min') }}
             />
@@ -140,25 +112,13 @@ const Filters = ({ brands=['apple', 'motorola', 'mac'], categories=['category1',
               label='Max:'
               getValue={() => getPriceValue('max')}
               min={1}
-              max={1000}
+              max={maxPrice}
               handleChange={(event) => { handlePriceChanges(event, 'max') }}
               handleBlur={() => { handlePriceBlur('max') }}
             />
           </div>
         </fieldset>
-        <fieldset className={styles['form__fieldset']}>
-          <legend className={styles['fieldset__title']}>Category</legend>
-          {categories.map(category => (
-            <Checkbox 
-              key={category}
-              name="category-name"
-              id={`filters-category-name__${category}`}
-              label={`${category.charAt(0).toUpperCase()}${category.substring(1)}`}
-              handleChange={() => { handleChkboxFiltersChange('categories', category) }}
-              getCheckedStatus={() => getChkboxStatus('categories', category)}
-            />
-          ))}
-        </fieldset>
+        
         <div className={styles['buttons-container']}>
           <button 
             type="reset"

@@ -33,9 +33,7 @@ const Navbar = ({ productsCategory }) => {
       toggleSearchContainer(true);
       return;
     } 
-    if(inputSearchValue.length) {
-      router.push(`/shop?q=${inputSearchValue}`);
-    }
+    if(inputSearchValue.length) router.push(`/shop?q=${inputSearchValue}`);
   };
   return (
     <nav className={styles['nav']}>

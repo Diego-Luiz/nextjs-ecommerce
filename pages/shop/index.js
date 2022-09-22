@@ -1,11 +1,15 @@
+import { useRouter } from "next/router";
+
 import { BASE_PRODUCTS_API_URL } from "utils/constants";
 import { Capitalize } from "utils/stringFunctions";
 import { ShopPageLayout } from "components/pages/shop";
 
 const Shop = ({ data, query, maxPrice, brands }) => {
+  const router = useRouter();
   const { total:resultsQuantity, products } = data;
   return (
     <ShopPageLayout 
+      key={router.asPath}
       infoSectionTitle={`Results for: ${query}`}
       resultsQuantity={resultsQuantity}
       products={products}
