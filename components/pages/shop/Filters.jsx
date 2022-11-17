@@ -11,7 +11,7 @@ import {
 import { TOGGLE_PORTAL_ANIMATION_TIME } from 'utils/constants';
 import styles from './filters.module.scss';
 
-const Filters = ({ toggleFilterSection, chkBoxesFilters, setChkBoxesFilters, priceFilters, setPriceFilters, maxPrice }) => {
+const Filters = ({ toggleFilterSection, chkBoxesFilters, setChkBoxesFilters, priceFilters, setPriceFilters, maxPrice, handleFormSubmit }) => {
   const [isMounted, setIsMounted] = useState(false);
   const chkBoxesEntries = Object.entries(chkBoxesFilters);
 
@@ -45,10 +45,6 @@ const Filters = ({ toggleFilterSection, chkBoxesFilters, setChkBoxesFilters, pri
     event.preventDefault();
     setPriceFilters(({ min: '1', max: maxPrice }));
   }
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    console.log('handle the form submit...');
-  }
   const closeContainerAnimation = () => {
     setIsMounted(false);
     setTimeout(() => {
@@ -76,7 +72,10 @@ const Filters = ({ toggleFilterSection, chkBoxesFilters, setChkBoxesFilters, pri
       <h2 className={styles['container__title']}>Filters</h2>
       <form 
         className={styles['form']}
-        onSubmit={(event) => { handleFormSubmit(event); }}
+        onSubmit={(event) => {
+          event.preventDefault(); 
+          handleFormSubmit();
+        }}
       >
         <fieldset className={styles['form__fieldset']}>
           <legend className={styles['fieldset__title']}>Brands</legend>

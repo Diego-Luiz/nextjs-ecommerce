@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { 
   useState, 
   useEffect,
@@ -13,9 +14,10 @@ import {
 } from 'components/pages/shop';
 import { Portal, Product } from 'components/ui';
 import styles from './shopPageLayout.module.scss';
+import slugifyFunc from 'utils/slugify';
 
 
-const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, maxPrice }) => {
+const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, maxPrice, filters, sort }) => {
   const [sortBy, setSortBy] = useState('');
   const [sortBoxStatus, setSortBoxStatus] = useState(false);
   const [filterSectionStatus, setFilterSectionStatus] = useState(false);
@@ -29,6 +31,8 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, m
   const [chkBoxesFilters, setChkBoxesFilters] = useState(getChkBoxesFilters());
   const [priceFilters, setPriceFilters] = useState({ min: '1', max: maxPrice });
   const sortOptionSelected = useRef(null);
+  const router = useRouter();
+  console.log('router query: ', router.query);
   let productsToDisplay = 
     sortBy.length 
     ? [products[0]]
@@ -47,12 +51,33 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, m
     target.setAttribute('aria-selected', true);
     sortOptionSelected.current = target;
     setSortBy(targetValue);
+    // resolver o sort na url
     toggleSortContainer();
   };
   const toggleFilterSection = () => {
     setFilterSectionStatus(prevState => !prevState);
   };
-  
+  const handleFilterFormSubmit = () => {
+    console.log(chkBoxesFilters);
+    let selectedBrands = Object.entries(chkBoxesFilters)
+                        .filter(item => item[1])
+                        .map(item => item[0]);
+    console.log('here: ', selectedBrands);
+    console.log('price: ', priceFilters);
+    let url = `/shop?q=${router.query.q}&brands=`;
+    selectedBrands.forEach((brand, index) => {
+      url = index + 1 !== selectedBrands.length ? url.concat(`${slugifyFunc(brand, { lower: false })}+`) : url.concat(`${slugifyFunc(brand, { lower: false })}`);
+    });
+    url = url.concat(`&min-price=${priceFilters.min}&max-price=${priceFilters.max}`);
+    console.log(url);
+    router.push(url, undefined, { shallow: true });
+  };
+  /*
+    FAZER: 
+    ---- TODA VEZ Q TIVER MUDANÇA NO SORT CONTAINER OU FILTER TEM Q FILTRAR OS DADOS RECEBIDOS
+    ---- SETAR A URL DE ACORDO COM AS MUDANÇAS
+    ---- FAZER O PRIMEIRO ITEM A PARTIR DA URL COM OS FILTROS
+  */ 
   return (
     <div 
       className={styles['container']}
@@ -109,6 +134,7 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, m
                 priceFilters={priceFilters}
                 setPriceFilters={setPriceFilters}
                 maxPrice={maxPrice}
+                handleFormSubmit={handleFilterFormSubmit}
               />
             </Portal>
           )}

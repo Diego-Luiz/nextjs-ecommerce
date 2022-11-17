@@ -7,6 +7,7 @@ import { ShopPageLayout } from "components/pages/shop";
 const Shop = ({ data, query, maxPrice, brands }) => {
   const router = useRouter();
   const { total:resultsQuantity, products } = data;
+
   return (
     <ShopPageLayout 
       key={router.asPath}
@@ -35,6 +36,17 @@ export async function getServerSideProps({ res, query }) {
     brands.add(Capitalize(brand));
   });
   brands = [...brands];
+  console.log('=====================here');
+  console.log(query);
+  let filters = {};
+  if(Object.keys(query).length > 1) {
+    let tempBrands = query.brands.split(' ')
+                    .map(item => item.replace(/-/g, ' '));
+    filters.brands = tempBrands;
+  }
+  if(query['min-price']) filters['min-price'] = Number(query['min-price']);
+  // falta resolver passar o sort
+  console.log('==>> ', filters);
   return ({
     props: {
       data,
