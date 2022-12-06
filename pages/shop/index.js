@@ -4,7 +4,7 @@ import { BASE_PRODUCTS_API_URL } from "utils/constants";
 import { Capitalize } from "utils/stringFunctions";
 import { ShopPageLayout } from "components/pages/shop";
 
-const Shop = ({ data, query, maxPrice, brands }) => {
+const Shop = ({ data, query, brands, filters }) => {
   const router = useRouter();
   const { total:resultsQuantity, products } = data;
 
@@ -15,7 +15,7 @@ const Shop = ({ data, query, maxPrice, brands }) => {
       resultsQuantity={resultsQuantity}
       products={products}
       brands={brands}
-      maxPrice={maxPrice}
+      filters={filters}
     />
   );
 }
@@ -26,7 +26,8 @@ export async function getServerSideProps({ res, query }) {
     'public, s-maxage=10, state-while-revalidate=120'
   );
   const response = await fetch(`${BASE_PRODUCTS_API_URL}/search?q=${query.q}&limit=100`);
-  const data = await response.json();
+  let data = await response.json();
+  console.log(data.products[0]);
   let maxPrice = 1;
   let brands = new Set();
   data.products.forEach(product => {
@@ -39,19 +40,22 @@ export async function getServerSideProps({ res, query }) {
   console.log('=====================here');
   console.log(query);
   let filters = {};
-  if(Object.keys(query).length > 1) {
+  if(query.brands) {
     let tempBrands = query.brands.split(' ')
                     .map(item => item.replace(/-/g, ' '));
     filters.brands = tempBrands;
   }
-  if(query['min-price']) filters['min-price'] = Number(query['min-price']);
-  // falta resolver passar o sort
-  console.log('==>> ', filters);
+  filters.sort = query.sort ? query.sort : '';
+  filters['min-price'] = query['min-price'] ? Number(query['min-price']) : 1;
+  if(query['max-price']) maxPrice = Number(query['max-price']);
+  filters['max-price'] = maxPrice;
+  
+  console.log('HERE   ==>> ', filters);
   return ({
     props: {
       data,
       brands, 
-      maxPrice,
+      filters,
       query: query.q
     }
   });

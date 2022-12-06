@@ -17,10 +17,11 @@ import styles from './shopPageLayout.module.scss';
 import slugifyFunc from 'utils/slugify';
 
 
-const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, maxPrice, filters, sort }) => {
-  const [sortBy, setSortBy] = useState('');
+const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, filters }) => {
+  const [sortBy, setSortBy] = useState(filters['sort']);
   const [sortBoxStatus, setSortBoxStatus] = useState(false);
   const [filterSectionStatus, setFilterSectionStatus] = useState(false);
+  // do this for chechbox filters & also for sortBy state
   const getChkBoxesFilters = () => {
     const tempObj = {};
     brands.forEach(brand => {
@@ -29,19 +30,49 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, m
     return tempObj;
   };
   const [chkBoxesFilters, setChkBoxesFilters] = useState(getChkBoxesFilters());
-  const [priceFilters, setPriceFilters] = useState({ min: '1', max: maxPrice });
+  const [priceFilters, setPriceFilters] = useState({ min: filters['min-price'], max: filters['max-price'] });
   const sortOptionSelected = useRef(null);
   const router = useRouter();
-  console.log('router query: ', router.query);
-  let productsToDisplay = 
-    sortBy.length 
-    ? [products[0]]
-    : products;
-
+  // Relation between filters - data
+  const fieldsEquivalence = {
+    'min-price': 'price',
+    'max-price': 'price',
+    'highestRating': 'rating',
+    'lowestRating': 'rating',
+    brands: 'brand'
+  };
+  console.log('********* RENDERED AGAIN **********');
+  // function to filter data before pass to the component
+  let productsToDisplay = [];
+  //não está funcionando no shallow routing
+  products.forEach(product => {
+    let productIsValid = true;
+    Object.keys(fieldsEquivalence).forEach(field => {
+      if(filters[field]) {
+        let productFieldValue = product[fieldsEquivalence[field]];
+        if(field === 'min-price' && !(productFieldValue >= filters[field])
+          || field === 'max-price' && !(productFieldValue <= filters[field])
+          || field === 'brands' && !filters[field].includes(productFieldValue)
+        ) {
+          productIsValid = false; 
+        }
+      }
+    });
+    if(productIsValid) productsToDisplay.push(product);
+  });
+  console.log('productsToDisplay: ', productsToDisplay);
   // Active or deactivate the select element
   const toggleSortContainer = () => {
     setSortBoxStatus(prevState => !prevState);
   };
+  useEffect(() => {
+    console.log('sortBy: ', sortBy);
+    if(!sortBy) return;
+    let url = router.asPath;
+    url = `${url}&sort=${sortBy}`;
+    router.push(url, undefined, { shallow: true });
+  }, [sortBy]);
+  
   // change the actual orderBy value and also set the aria-selected attribute accordingly to the active element in the DOM
   const setSortOptionSelected = (element) => {
     const target = element.target;
@@ -51,12 +82,12 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, m
     target.setAttribute('aria-selected', true);
     sortOptionSelected.current = target;
     setSortBy(targetValue);
-    // resolver o sort na url
     toggleSortContainer();
   };
   const toggleFilterSection = () => {
     setFilterSectionStatus(prevState => !prevState);
   };
+  //faltando atualizar os states qndo submit
   const handleFilterFormSubmit = () => {
     console.log(chkBoxesFilters);
     let selectedBrands = Object.entries(chkBoxesFilters)
@@ -133,7 +164,8 @@ const ShopPageLayout = ({ infoSectionTitle, resultsQuantity, products, brands, m
                 setChkBoxesFilters={setChkBoxesFilters}
                 priceFilters={priceFilters}
                 setPriceFilters={setPriceFilters}
-                maxPrice={maxPrice}
+                minPrice={filters['min-price']}
+                maxPrice={filters['max-price']}
                 handleFormSubmit={handleFilterFormSubmit}
               />
             </Portal>

@@ -11,7 +11,7 @@ import {
 import { TOGGLE_PORTAL_ANIMATION_TIME } from 'utils/constants';
 import styles from './filters.module.scss';
 
-const Filters = ({ toggleFilterSection, chkBoxesFilters, setChkBoxesFilters, priceFilters, setPriceFilters, maxPrice, handleFormSubmit }) => {
+const Filters = ({ toggleFilterSection, chkBoxesFilters, setChkBoxesFilters, priceFilters, setPriceFilters, minPrice, maxPrice, handleFormSubmit }) => {
   const [isMounted, setIsMounted] = useState(false);
   const chkBoxesEntries = Object.entries(chkBoxesFilters);
 
@@ -43,7 +43,7 @@ const Filters = ({ toggleFilterSection, chkBoxesFilters, setChkBoxesFilters, pri
   }
   const handleFormReset = (event) => {
     event.preventDefault();
-    setPriceFilters(({ min: '1', max: maxPrice }));
+    setPriceFilters(({ min: minPrice, max: maxPrice }));
   }
   const closeContainerAnimation = () => {
     setIsMounted(false);
